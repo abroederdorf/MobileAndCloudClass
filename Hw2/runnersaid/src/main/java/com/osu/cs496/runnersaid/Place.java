@@ -3,8 +3,6 @@ package com.osu.cs496.runnersaid;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
 
 import java.lang.String;
 import java.util.Date;
@@ -51,5 +49,34 @@ public class Place{
 		
 		this.creatorId = creatorId;
 		this.creatorEmail = creatorEmail;
+	}
+	
+	//Setter methods
+	public void setType(String type){
+		this.type = type;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public void setLatitude(double latitude){
+		this.latitude = latitude;
+	}
+	
+	public void setLongitude(double longitude){
+		this.longitude = longitude;
+	}
+	
+	public void setStatus(String status){
+		this.status = status;
+	}
+	
+	public void setFavorite(boolean fav){
+		this.favorite = fav;
+	}
+	
+	public void setStatusDate(Date date){
+		this.statusDate = date;
 	}
 }

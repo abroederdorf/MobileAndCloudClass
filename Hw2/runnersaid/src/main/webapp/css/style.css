@@ -26,3 +26,7 @@ input:invalid {
 input:valid {
   border: 1px solid green;
 }
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}

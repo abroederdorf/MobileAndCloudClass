@@ -19,33 +19,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.googlecode.objectify.ObjectifyService;
 
 //Add place form data
-public class AddPlaceServlet extends HttpServlet {
+public class EditPlaceServlet extends HttpServlet {
 
   // Process the http POST of the form
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Place place;
 
-    UserService userService = UserServiceFactory.getUserService();
-    User user = userService.getCurrentUser();  // Find out who the user is.
+	String placeId = req.getParameter("placeId");
 
-	String type = req.getParameter("placeType");
-    String name = req.getParameter("placeName");
-    double longitude = Double.parseDouble(req.getParameter("longitude"));
-	double latitude = Double.parseDouble(req.getParameter("latitude"));
-	String status = req.getParameter("placeStatus");
-	boolean favorite = Boolean.parseBoolean(req.getParameter("placeFav"));
 	
-    if (user != null) {
-      place = new Place(type, name, latitude, longitude, status, favorite, user.getUserId(), user.getEmail());
-    } else {
-      place = new Place(type, name, latitude, longitude, status, favorite);
-    }
-
     // Use Objectify to save the place and now() is used to make the call synchronously as we
     // will immediately get a new page using redirect and we want the data to be present.
-    ObjectifyService.ofy().save().entity(place).now();
+    //ObjectifyService.ofy().put().entity(place).now();
 
-    resp.sendRedirect("/viewPlace.jsp");
+    resp.sendRedirect("/editPlace.jsp?id=" + placeId);
   }
 }
