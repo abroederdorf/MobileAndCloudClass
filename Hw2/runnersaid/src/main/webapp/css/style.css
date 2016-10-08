@@ -1,0 +1,28 @@
+body{
+	padding-top: 75px;
+	text-align: justify;
+	font-family: sans-serif;
+	line-height: 150%;
+}
+
+img{
+	text-align: center;
+}
+
+
+submit, button{
+	text-align: center;
+	margin: 10px;
+}
+
+#placeName{
+	width: 300px;
+}
+
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
