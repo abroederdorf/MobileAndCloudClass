@@ -121,7 +121,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<label class="control-label input-group-addon" for="placeName">Name:</label>
-							<input type="text" required class="form-control hidden-xs" name="placeName" id="placeName" value="${fn:escapeXml(valName)}"> 
+							<input type="text" required class="form-control" name="placeName" id="placeName" value="${fn:escapeXml(valName)}"> 
 						</div>
 					</div>
 				</div>
@@ -177,16 +177,15 @@
 				<div class="col-sm-4 col-xs-12">
 					<div class="form-group">
 						<div class="input-group">
-							<span class="control-label input-group-addon">Favorite?</span>
-							<label class="checkbox-inline">&nbsp&nbsp&nbsp&nbsp
+							<span class="control-label input-group-addon vcenter">Favorite?</span><span>&nbsp&nbsp&nbsp&nbsp</span>
 							<%
 							if (thisPlace.favorite){
 							%>
-							<input type="checkbox" name="placeFav" id="placeFav" value="true" checked></label>
+							<input type="checkbox" name="placeFav" id="placeFav" value="true" class="vcenter" checked>
 							<%
 							}else{
 							%>
-							<input type="checkbox" name="placeFav" id="placeFav" value="true"></label>
+							<input type="checkbox" name="placeFav" id="placeFav" value="true" class="vcenter">
 							<%
 							}
 	}
@@ -201,12 +200,10 @@
 		<!--Buttons-->
 		<div class="row">
 			<div class="col-sm-6">
-				<div class="btn-group">
+				
 				  <button type="submit" class="btn btn-success" value="Update Place">Update Place</button></form>
-				</div>
-				<div class="btn-group">
-					<form action="/" method="get"><button type="submit" class="btn btn-danger" value="Cancel">Cancel</button></form>
-				</div>
+					<form action="/" method="get"><button type="submit" class="btn btn-default" value="Cancel">Cancel</button></form>
+				
 			 </div>
 		 </div>
 	</form>

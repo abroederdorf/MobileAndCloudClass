@@ -83,7 +83,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<label class="control-label input-group-addon" for="placeName">Name:</label>
-							<input type="text" required class="form-control hidden-xs" name="placeName" id="placeName"> 
+							<input type="text" required class="form-control" name="placeName" id="placeName"> 
 						</div>
 					</div>
 				</div>
@@ -149,9 +149,7 @@
 				  <button type="button" id="resetForm" class="btn btn-default">Reset Fields</button>
 				</div>
 			 </div>
-		 </div>
-		
-		
+		 </div>		
 	</form>
 <%-- //[END datastore]--%>
 	</div>

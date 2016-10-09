@@ -69,6 +69,7 @@
       List<Place> places = ObjectifyService.ofy()
           .load()
           .type(Place.class) // We want only Greetings
+		  .order("createDate")
           .list();
 
     if (places.isEmpty()) {

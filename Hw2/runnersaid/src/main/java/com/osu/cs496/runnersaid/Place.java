@@ -3,6 +3,7 @@ package com.osu.cs496.runnersaid;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import java.lang.String;
 import java.util.Date;
@@ -14,7 +15,7 @@ public class Place{
 	
 	public String creatorId;
 	public String creatorEmail;
-	public Date createDate;
+	@Index public Date createDate;
 	public Date statusDate;
 	
 	public String type;

@@ -11,6 +11,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class AddPlaceServlet extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Place place;
 
+	//Get details from form to create Place entity
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();  // Find out who the user is.
 
@@ -36,16 +38,35 @@ public class AddPlaceServlet extends HttpServlet {
 	String status = req.getParameter("placeStatus");
 	boolean favorite = Boolean.parseBoolean(req.getParameter("placeFav"));
 	
-    if (user != null) {
-      place = new Place(type, name, latitude, longitude, status, favorite, user.getUserId(), user.getEmail());
-    } else {
-      place = new Place(type, name, latitude, longitude, status, favorite);
-    }
+	//Check that place does not exist
+	boolean exists = false;
+	List<Place> places = ObjectifyService.ofy().load().type(Place.class).list();
+	for (Place thisPlace : places){
+		if (thisPlace.type.equals(type) &&
+			(thisPlace.name.equals(name)) &&
+			(thisPlace.latitude == latitude) &&
+			(thisPlace.longitude == longitude)){
+				exists = true;
+			}
+	}
+	
+	//If place doesn't exist create it, otherwise display error
+	if (!exists){
+		if (user != null) {
+		  place = new Place(type, name, latitude, longitude, status, favorite, user.getUserId(), user.getEmail());
+		} else {
+		  place = new Place(type, name, latitude, longitude, status, favorite);
+		}
 
-    // Use Objectify to save the place and now() is used to make the call synchronously as we
-    // will immediately get a new page using redirect and we want the data to be present.
-    ObjectifyService.ofy().save().entity(place).now();
+		// Use Objectify to save the place and now() is used to make the call synchronously as we
+		// will immediately get a new page using redirect and we want the data to be present.
+		ObjectifyService.ofy().save().entity(place).now();
 
-    resp.sendRedirect("/viewPlace.jsp");
+		resp.sendRedirect("/viewPlace.jsp");
+	}
+	else {
+		resp.sendRedirect("/existingPlace.jsp");
+	}
+    
   }
 }
