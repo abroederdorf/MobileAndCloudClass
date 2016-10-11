@@ -1,0 +1,27 @@
+th {
+	border: solid 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: #BCC6CC;
+	font-family: sans-serif;
+	line-height: 150%;
+}
+
+td {
+	border: solid 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+	text-align: center;
+	font-family: sans-serif;
+	line-height: 150%;
+}
+
+table {
+	border-spacing: 0px;
+	border: solid 1px;
+	margin-top:20px;
+}
+
+body{
+	padding-left: 40px;
+}
