@@ -1,0 +1,25 @@
+body{
+	padding-top: 75px;
+	text-align: justify;
+	font-family: sans-serif;
+	line-height: 150%;
+}
+
+img{
+	text-align: center;
+}
+
+
+submit, button{
+	text-align: center;
+	margin: 10px;
+}
+
+#placeName{
+	min-width: 300px;
+}
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
+

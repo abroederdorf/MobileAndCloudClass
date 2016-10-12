@@ -1,170 +1,104 @@
-<%--
-Copyright 2016 Google Inc. All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
---%>
+<%-- //[START all]--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<!-- [START base] -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<html lang="en">
+
+<%-- //[START imports]--%>
+<%@ page import="com.osu.cs496.mybusstop.BusInfo" %>
+<%@ page import="com.osu.cs496.mybusstop.BusStop" %>
+
+<%-- //[END imports]--%>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<html>
 <head>
-    <title>My Bus Stops</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>My Bus Stops</title>
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-    <h1>My Bus Stops</h1>
+	<div class="container" id="pageDiv">
+
+	<nav class='navbar navbar-default navbar-fixed-top'>
+		<div class='container'>
+			<div class='navbar-header'>
+				<a href='http://urlfetchex.appspot.com/' class='navbar-brand' id='pageTitle'><strong><span class='glyphicon glyphicon-flag'></span>   My Bus Stops</strong></a>
+			</div>
+		</div>
+	</nav>
+
+	<%
+	ArrayList<BusStop> allStops = (ArrayList<BusStop>)request.getAttribute("stops");
 	
-	<h3>Stone and 40th</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Route</th>
-				<th>Arrival</th>
-				<th>Wait Time</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<c:if test="${not empty route7380_0}">
-				<td>${route7380_0}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_0}">
-				<td>${arrival7380_0}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_0}">
-				<td>${wait7380_0}</td>
-				</c:if>
-			</tr>
-			<tr>
-				<c:if test="${not empty route7380_1}">
-				<td>${route7380_1}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_1}">
-				<td>${arrival7380_1}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_1}">
-				<td>${wait7380_1}</td>
-				</c:if>
-			</tr>
-			<tr>
-				<c:if test="${not empty route7380_2}">
-				<td>${route7380_2}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_2}">
-				<td>${arrival7380_2}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_2}">
-				<td>${wait7380_2}</td>
-				</c:if>
-			</tr>
-		</tbody>
-	</table>
-		
-	<h3>Fremont and 41st</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Route</th>
-				<th>Arrival</th>
-				<th>Wait Time</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<c:if test="${not empty route7380_3}">
-				<td>${route7380_3}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_3}">
-				<td>${arrival7380_3}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_3}">
-				<td>${wait7380_3}</td>
-				</c:if>
-			</tr>
-			<tr>
-				<c:if test="${not empty route7380_4}">
-				<td>${route7380_4}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_4}">
-				<td>${arrival7380_4}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_4}">
-				<td>${wait7380_4}</td>
-				</c:if>
-			</tr>
-		</tbody>
-	</table>
+	if (allStops != null){
+		if (allStops.isEmpty()){		
+	%>
+		<p>No bus stops selected</p>
+	<%	}else{
+			for(BusStop thisStop : allStops){
+				if (thisStop != null){
+					pageContext.setAttribute("stopName", thisStop.name);
+	%>
+		<h4>${fn:escapeXml(stopName)}</h4>	
+	<%
+					if (thisStop.buses.isEmpty()){		
+	%>	
+			<p>No buses arriving at this stop</p>
+	<%
+					}else{
+	%>
+		<div class="row">
+			<div class="col-sm-off-3 col-sm-6 col-xs-12">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Route</th>
+						<th>Arrival</th>
+						<th>Wait Time</th>
+					</tr>
+				</thead>
+				<tbody>	
+	<%
+						for (BusInfo bus : thisStop.buses){
+							pageContext.setAttribute("busRoute", bus.route);
+							pageContext.setAttribute("busArrival", bus.arrival);
+							pageContext.setAttribute("busWait", bus.wait);
+	%>
+				<tr>
+					<td>${fn:escapeXml(busRoute)}</td>
+					<td>${fn:escapeXml(busArrival)}</td>
+					<td>${fn:escapeXml(busWait)}</td>
+				</tr>
+	<%
+							
+						}
+	%>
+			</tbody>
+		</table>
+		</div>
+		</div>
 	
-	<h3>Aurora and 38th</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>Route</th>
-				<th>Arrival</th>
-				<th>Wait Time</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<c:if test="${not empty route7380_5}">
-				<td>${route7380_5}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_5}">
-				<td>${arrival7380_5}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_5}">
-				<td>${wait7380_5}</td>
-				</c:if>
-			</tr>
-			<tr>
-				<c:if test="${not empty route7380_6}">
-				<td>${route7380_6}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_6}">
-				<td>${arrival7380_6}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_6}">
-				<td>${wait7380_6}</td>
-				</c:if>
-			</tr>
-			<tr>
-				<c:if test="${not empty route7380_7}">
-				<td>${route7380_7}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_7}">
-				<td>${arrival7380_7}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_7}">
-				<td>${wait7380_7}</td>
-				</c:if>
-			</tr>
-			<tr>
-				<c:if test="${not empty route7380_8}">
-				<td>${route7380_8}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_8}">
-				<td>${arrival7380_8}</td>
-				</c:if>
-				<c:if test="${not empty arrival7380_8}">
-				<td>${wait7380_8}</td>
-				</c:if>
-			</tr>
-		</tbody>
-	</table>
+	<%
+					}
+				}
+			}
+		}
+	}else{
+	%>
+	<p>Not within first if</p>
+	<%	
+	}
+	%>
 	<p>Public transit data powered by OneBusAway</p>
-	
+
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
-<!-- [END base]-->
+<%-- //[END all]--%>

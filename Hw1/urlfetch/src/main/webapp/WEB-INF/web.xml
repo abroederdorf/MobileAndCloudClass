@@ -5,7 +5,7 @@
   version="2.5">
   <servlet>
     <servlet-name>busstop</servlet-name>
-    <servlet-class>com.example.appengine.BusStopServlet</servlet-class>
+    <servlet-class>com.osu.cs496.mybusstop.BusStopServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>busstop</servlet-name>
