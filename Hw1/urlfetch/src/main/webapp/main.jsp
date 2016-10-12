@@ -88,10 +88,6 @@
 				}
 			}
 		}
-	}else{
-	%>
-	<p>Not within first if</p>
-	<%	
 	}
 	%>
 	<p>Public transit data powered by OneBusAway</p>
