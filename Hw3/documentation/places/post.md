@@ -19,13 +19,13 @@ http://runnersaidapp2.appspot.com/api/v1/places
  - **userId** *(required)*: Database id of user who created place
  - **latitude** *(required)*: Latitude coordinate for location of place
  - **longitude** *(required)*: Longitude coordinate for location of place
- - **status** *(required)*: Status of location, open or closed
+ - **status** *(required)*: Status of place, open or closed
 
 
 ### Example
 
 ```
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'type=Water Fountain&name=Fred Meyer Ballard&latitude=47.660417&longitude=-122.368805&status=Open&userId=5707702298738688' "http://runnersaidapp2.appspot.com/api/v1/places"
+> curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'type=Water Fountain&name=Fred Meyer Ballard&latitude=47.660417&longitude=-122.368805&status=Open&userId=5707702298738688' "http://runnersaidapp2.appspot.com/api/v1/places"
 ```
 
 ---
@@ -42,7 +42,7 @@ The response will include a JSON object of the newly created place
  - **createdUserId**: Database id of user who created place
  - **latitude**: Latitude coordinate for location of place
  - **longitude**: Longitude coordinate for location of place
- - **status**: Status of location, open or closed
+ - **status**: Status of place, open or closed
  - **statusDate**: Date for the most recent update of the status
  - **vote**: Integer representing the confidence vote of the status. This may be any interger - positive, negative, or zero
 

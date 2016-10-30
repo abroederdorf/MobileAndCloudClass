@@ -28,7 +28,7 @@ The response will include a JSON object of the place specified
  - **createdUserId**: Database id of user who created place
  - **latitude**: Latitude coordinate for location of place
  - **longitude**: Longitude coordinate for location of place
- - **status**: Status of location, open or closed
+ - **status**: Status of place, open or closed
  - **statusDate**: Date for the most recent update of the status
  - **vote**: Integer representing the confidence vote of the status. This may be any interger - positive, negative, or zero
 

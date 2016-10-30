@@ -20,7 +20,7 @@ http://runnersaidapp2.appspot.com/api/v1/places
  - **userId** *(optional)*: Database id of user who created place
  - **latitude** *(optional)*: Latitude coordinate for location of place
  - **longitude** *(optional)*: Longitude coordinate for location of place
- - **status** *(optional)*: Status of location, open or closed
+ - **status** *(optional)*: Status of place, open or closed
  - **vote** *(optional)*: Value = up or down. To vote for status (up) or against status (down)
 
 ### Example
@@ -28,13 +28,13 @@ http://runnersaidapp2.appspot.com/api/v1/places
 Update status for place:
 
 ```
-curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5715999101812736&status=Closed' "http://runnersaidapp2.appspot.com/api/v1/places"
+> curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5715999101812736&status=Closed' "http://runnersaidapp2.appspot.com/api/v1/places"
 ```
 
 Vote up for place:
 
 ```
-curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5715999101812736&vote=up' "http://runnersaidapp2.appspot.com/api/v1/places"
+> curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5715999101812736&vote=up' "http://runnersaidapp2.appspot.com/api/v1/places"
 ```
 
 ---
@@ -51,7 +51,7 @@ The response will include a JSON object of the updated place
  - **createdUserId**: Database id of user who created place
  - **latitude**: Latitude coordinate for location of place
  - **longitude**: Longitude coordinate for location of place
- - **status**: Status of location, open or closed
+ - **status**: Status of place, open or closed
  - **statusDate**: Date for the most recent update of the status
  - **vote**: Integer representing the confidence vote of the status. This may be any interger - positive, negative, or zero
 

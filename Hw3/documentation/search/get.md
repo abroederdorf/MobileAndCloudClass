@@ -9,7 +9,7 @@ Search places using criteria of status, type, and/or location
 ## URL Query Example
 
 ```
-http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radius=6&latitude=47.65&longitude=-122.3
+> http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radius=6&latitude=47.65&longitude=-122.3
 ```
 
 - **type** *(optional)*: Type of place, i.e. water fountain or bathroom
@@ -32,7 +32,7 @@ The response will include a JSON object with an array of all place objects that 
  - **createdUserId**: Database id of user who created place
  - **latitude**: Latitude coordinate for location of place
  - **longitude**: Longitude coordinate for location of place
- - **status**: Status of location, open or closed
+ - **status**: Status of place, open or closed
  - **statusDate**: Date for the most recent update of the status
  - **vote**: Integer representing the confidence vote of the status. This may be any interger - positive, negative, or zero
 
