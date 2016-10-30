@@ -4,7 +4,7 @@
 
 Returns details for specified user
 
-~~~
+---
 
 ## URL Query Example
 
@@ -14,7 +14,7 @@ http://runnersaidapp2.appspot.com/api/v1/users?id=5644406560391168
 
 - **id** *(required)*: Database id of user
 
-~~~
+---
 
 ## Response
 

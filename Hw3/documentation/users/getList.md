@@ -4,7 +4,7 @@
 
 Returns list of details for all users
 
-~~~
+---
 
 ## URL Query Example
 
@@ -12,7 +12,7 @@ Returns list of details for all users
 http://runnersaidapp2.appspot.com/api/v1/users
 ```
 
-~~~
+---
 
 ## Response
 

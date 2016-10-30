@@ -4,7 +4,7 @@
 
 Adds new user to database
 
-~~~
+---
 
 ## URL Query Example
 
@@ -23,7 +23,7 @@ http://runnersaidapp2.appspot.com/api/v1/users
 curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'userId=345987&email=jonest@oregonstate.edu' "http://runnersaidapp2.appspot.com/api/v1/users"
 ```
 
-~~~
+---
 
 ## Response
 

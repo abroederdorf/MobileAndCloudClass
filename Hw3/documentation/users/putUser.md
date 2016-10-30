@@ -4,7 +4,7 @@
 
 Modify details of user
 
-~~~
+---
 
 ## URL Query Example
 
@@ -26,7 +26,7 @@ Update email for user:
 curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5664248772427776&email=jonest12@oregonstate.edu' "http://runnersaidapp2.appspot.com/api/v1/users"
 ```
 
-~~~
+---
 
 ## Response
 

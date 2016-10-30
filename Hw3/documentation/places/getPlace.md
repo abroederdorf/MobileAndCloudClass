@@ -4,7 +4,7 @@
 
 Returns details for specified place
 
-~~~
+---
 
 ## URL Query Example
 
@@ -14,7 +14,7 @@ http://runnersaidapp2.appspot.com/api/v1/places?id=5654313976201216
 
 - **id** *(required)*: Database id of place
 
-~~~
+---
 
 ## Response
 

@@ -4,7 +4,7 @@
 
 Modify user's favorite list by adding place
 
-~~~
+---
 
 ## URL Query Example
 
@@ -21,7 +21,7 @@ http://runnersaidapp2.appspot.com/api/v1/users/{id1}/place?id=
 curl -X DELETE -H "Content-Type: application/x-www-form-urlencoded" "http://runnersaidapp2.appspot.com/api/v1/users/5664248772427776/place?id=5654313976201216"
 ```
 
-~~~
+---
 
 ## Response
 

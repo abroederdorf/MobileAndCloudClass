@@ -4,7 +4,7 @@
 
 Modify details of place, including vote for status
 
-~~~
+---
 
 ## URL Query Example
 
@@ -37,7 +37,7 @@ Vote up for place:
 curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5715999101812736&vote=up' "http://runnersaidapp2.appspot.com/api/v1/places"
 ```
 
-~~~
+---
 
 ## Response
 

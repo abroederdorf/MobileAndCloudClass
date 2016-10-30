@@ -4,7 +4,7 @@
 
 Returns list of details for all places
 
-~~~
+---
 
 ## URL Query Example
 
@@ -12,7 +12,7 @@ Returns list of details for all places
 http://runnersaidapp2.appspot.com/api/v1/places
 ```
 
-~~~
+---
 
 ## Response
 
