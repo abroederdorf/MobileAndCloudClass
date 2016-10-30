@@ -9,7 +9,7 @@ Returns list of favorite places for specified user
 ## URL Query Example
 
 ```
-> http://runnersaidapp2.appspot.com/api/v1/users?id=123456789&fields=favorite
+http://runnersaidapp2.appspot.com/api/v1/users?id=123456789&fields=favorite
 ```
 
 - **id** *(required)*: Database id of user

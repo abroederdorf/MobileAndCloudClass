@@ -18,7 +18,8 @@ http://runnersaidapp2.appspot.com/api/v1/users/{id1}/place?id=
 ### Example
 
 ```
-> curl -X DELETE -H "Content-Type: application/x-www-form-urlencoded" "http://runnersaidapp2.appspot.com/api/v1/users/5664248772427776/place?id=5654313976201216"
+curl -X DELETE -H "Content-Type: application/x-www-form-urlencoded" 
+"http://runnersaidapp2.appspot.com/api/v1/users/5664248772427776/place?id=5654313976201216"
 ```
 
 ---

@@ -25,10 +25,8 @@ http://runnersaidapp2.appspot.com/api/v1/places
 ### Example
 
 ```
-> curl -X POST -H "Content-Type: application/x-www-form-urlencoded" 
--d 'type=Water Fountain&name=Fred Meyer Ballard&latitude=47.660417
-&longitude=-122.368805&status=Open&userId=5707702298738688' 
-"http://runnersaidapp2.appspot.com/api/v1/places"
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'type=Water Fountain&name=Fred Meyer Ballard&latitude=47.660417
+&longitude=-122.368805&status=Open&userId=5707702298738688' "http://runnersaidapp2.appspot.com/api/v1/places"
 ```
 
 ---
