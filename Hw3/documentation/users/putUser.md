@@ -23,8 +23,8 @@ http://runnersaidapp2.appspot.com/api/v1/users
 Update email for user:
 
 ```
-curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5664248772427776&email=jonest12@oregonstate.edu' 
-"http://runnersaidapp2.appspot.com/api/v1/users"
+curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 
+'id=5664248772427776&email=jonest12@oregonstate.edu' "http://runnersaidapp2.appspot.com/api/v1/users"
 ```
 
 ---
