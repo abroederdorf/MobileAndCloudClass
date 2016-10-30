@@ -4,7 +4,7 @@
 
 Search places using criteria of status, type, and/or location
 
-~~~
+---
 
 ## URL Query Example
 
@@ -18,7 +18,7 @@ http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radi
  - **latitude** *(required if radius is used)*: Latitude coordinate of position to extend the search radius from
  - **longitude** *(required if radius is used)*: Longitude coordinate of position to extend the search radius from
 
-~~~
+---
 
 ## Response
 
