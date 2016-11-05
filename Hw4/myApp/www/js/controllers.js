@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-	url:'http://runnersaidapp2.appspot.com/api/v1'
+	url:'http://192.168.1.11:8100/api'
 })
 //url:'http://192.168.1.11:8100/api'
 //url:'http://runnersaidapp2.appspot.com/api/v1'

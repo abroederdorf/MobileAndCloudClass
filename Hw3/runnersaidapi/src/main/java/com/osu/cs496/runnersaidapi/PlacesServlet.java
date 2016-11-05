@@ -238,7 +238,7 @@ public class PlacesServlet extends HttpServlet {
 	}
 	
 	//If entity does not exist, an id is provided, and a valid user id is used - update. 
-	if (!exists && (id != -1) && valid){
+	if (!exists && (id != -1)){
 		//Get entity
 		Place thisPlace = ObjectifyService.ofy().load().type(Place.class).id(id).now();
 
@@ -273,26 +273,34 @@ public class PlacesServlet extends HttpServlet {
 		Place checkPlace = new Place(thisPlace.type, thisPlace.name, thisPlace.latitude, thisPlace.longitude, thisPlace.status, thisPlace.createdUserId, thisPlace.vote);
 		ObjectifyService.ofy().save().entity(thisPlace).now(); 
 		
-		if (checkPlace.name == thisPlace.name &&
-			checkPlace.type == thisPlace.type &&
-			checkPlace.status == thisPlace.status &&
-			checkPlace.latitude == thisPlace.latitude &&
-			checkPlace.longitude == thisPlace.longitude &&
-			checkPlace.createdUserId == thisPlace.createdUserId &&
-			checkPlace.vote == thisPlace.vote){
-				
-			resp.setStatus(HttpServletResponse.SC_OK);
-			resp.setContentType("application/json");
-			String dataJSON = new Gson().toJson(thisPlace);
-			respMsg.println(dataJSON);
+		if (!valid && userId != -1){
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			respMsg.println("User id not valid");
 			respMsg.flush();
 			respMsg.close();
 		}
 		else{
-			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			respMsg.println("Update was not successful");
-			respMsg.flush();
-			respMsg.close();
+			if (checkPlace.name == thisPlace.name &&
+				checkPlace.type == thisPlace.type &&
+				checkPlace.status == thisPlace.status &&
+				checkPlace.latitude == thisPlace.latitude &&
+				checkPlace.longitude == thisPlace.longitude &&
+				checkPlace.createdUserId == thisPlace.createdUserId &&
+				checkPlace.vote == thisPlace.vote){
+					
+				resp.setStatus(HttpServletResponse.SC_OK);
+				resp.setContentType("application/json");
+				String dataJSON = new Gson().toJson(thisPlace);
+				respMsg.println(dataJSON);
+				respMsg.flush();
+				respMsg.close();
+			}
+			else{
+				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				respMsg.println("Update was not successful");
+				respMsg.flush();
+				respMsg.close();
+			}
 		}
 		
 	}
