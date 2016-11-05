@@ -1,0 +1,46 @@
+<ion-view view-title="Filter Places">
+  <ion-content ng-app="starter" class="padding">
+	<div class="list">
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Type
+			</div>
+			<select ng-model="data.type" required>
+				<option value="">Please select...</option>
+				<option value="Water Fountain">Water Fountain</option>
+				<option value="Bathroom">Bathroom</option>
+			</select>
+		</label>
+        <!--<ion-toggle class="meds-toggle"
+                    toggle-class="toggle-calm"
+                    ng-model="data.pstatus"
+					checked=false
+                    >
+          <div class="toggle-text">Status: {{data.pstatus ? "Open" : "Closed"}}</div>
+        </ion-toggle>-->
+		
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Status
+			</div>
+			<select ng-model="data.pstatus" required>
+				<option value="">Please select...</option>
+				<option value="Open">Open</option>
+				<option value="Closed">Closed</option>
+			</select>
+		</label>
+		
+		<div>
+		<label class="item item-input">
+			<span class="input-label">Radius </span>
+			<input ng-model="data.radius" type="number" placeholder="Miles" required>
+		</label>
+		<label class="item item-input">
+			<span class="input-label">Location </span>
+			<input ng-model="data.location" type="text" placeholder="loc" required>
+		</label>
+		</div>
+		<button class="button button-block button-balanced" ng-click="applyFilter(data)">Filter</button>
+	</div>
+  </ion-content>
+</ion-view>

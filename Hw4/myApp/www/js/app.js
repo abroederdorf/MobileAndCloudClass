@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers'])
-//'ngCordova', 
+// 'ngCordova', 
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -44,7 +44,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   })
 
     .state('app.places', {
+	  cache: false,
       url: '/places',
+	  params: {
+		ftype: null, 
+		fstatus: null, 
+		fradius: null, 
+		flat: null, 
+		flong: null
+	},
       views: {
         'menuContent': {
           templateUrl: 'templates/places.html',
@@ -54,14 +62,25 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     })
 
   .state('app.single', {
-    url: '/playlists/:playlistId',
+	cache: false,
+    url: '/places/:placeId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/place.html',
+        controller: 'PlaceCtrl'
       }
     }
-  });
+  })
+  
+   .state('app.filter', {
+      url: '/filter',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/filter.html',
+          controller: 'FilterCtrl'
+        }
+      }
+    });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/places');
 });

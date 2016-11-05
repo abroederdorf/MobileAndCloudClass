@@ -1,18 +1,26 @@
 <ion-view class="calm" view-title="View Places">
   <ion-content>
+  <div class="bar bar-footer">
+	  <div class="button-bar">
+			<a class="button button-stable" ng-click="go('app.filter')"><span class="ion-funnel"> Filter</span></a>
+			<a class="button button-stable"><span class="ion-map"> Map View</span></a>
+		</div>
+	</div>
     <ion-list>
-      <!--<ion-item ng-repeat="place in places" href="#/app/playlists/{{playlist.id}}">-->
-	  <ion-item ng-repeat="place in places">
+      <ion-item ng-repeat="place in places" href="#/app/places/{{place.id}}">
+	  <!--<ion-item ng-repeat="place in places"  href="#/app/places/{{place.id}}">-->
 		<div class="row row-top">
-			<div class="col col-80">
-				<b>{{place.name}}</b><br>
-				{{place.type}} | {{place.status}} | Votes: {{place.vote}}
+			<div class="col col-80" href="#/app/places/{{place.id}}">
+				<span class="item-text-wrap"><b>{{place.name}}</b></span><br>
+				{{place.type}} | {{place.status}} <br> Votes: {{place.vote}}
 			</div>
 			<div class="col">
-				<button class="button button-light"><span class="ion-android-star-outline bigger-icon"></span></button>
+				<button class="button button-light" ng-click="favorite(place, $event)"><span class="ion-android-star-outline bigger-icon"></span></button>
 			<div>
 		</div>
       </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>
+
+
