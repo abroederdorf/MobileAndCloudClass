@@ -1,9 +1,10 @@
 angular.module('starter.controllers', [])
 
 .constant('ApiEndpoint', {
-	url:'http://192.168.1.11:8100/api'
+	url:'http://localhost:8100/api'
 })
 //url:'http://192.168.1.11:8100/api'
+//url:'http://localhost:8100/api'
 //url:'http://runnersaidapp2.appspot.com/api/v1'
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -61,7 +62,6 @@ angular.module('starter.controllers', [])
 		queryStr += "?";
 	if ($stateParams.fstatus != null){
 		queryStr = queryStr + "status=" + $stateParams.fstatus;
-		//queryStr += $stateParams.fstatus ? "Open" : "Closed";
 		numQuery++;
 	}
 	if ($stateParams.ftype != null){
@@ -100,7 +100,7 @@ angular.module('starter.controllers', [])
 	}
 })
 
-.controller('PlaceCtrl', function($scope, $stateParams, $http, ApiEndpoint) {
+.controller('PlaceCtrl', function($scope, $stateParams, $http, ApiEndpoint, $ionicLoading) {
 	$scope.place = "";
 	
 	$http.get(ApiEndpoint.url + '/places?id=' + $stateParams.placeId)
@@ -108,11 +108,29 @@ angular.module('starter.controllers', [])
 			console.log('Success');
 			console.log(data);
 			$scope.place = data;
+			init();
 		})
 		.error(function(data, status, headers, config){
 			console.log('Failure');
 			console.log(data);
 		})	
+	
+	var init = function() {
+        var myLatlng = new google.maps.LatLng($scope.place.latitude, $scope.place.longitude);
+ 
+        var mapOptions = {
+            center: myLatlng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+ 
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+		
+		var marker = new google.maps.Marker({
+			position: myLatlng,
+			map: map
+		});
+	};
 		
 	$scope.voteUp = function(placeId){
 		console.log("Id: " + placeId);
@@ -127,7 +145,6 @@ angular.module('starter.controllers', [])
 			console.log('Success');
 			console.log(data);
 			$scope.place = data;
-			//$stateParams.place.vote = newData.vote;
 		}).error(function(data) { 
 			console.log('Failure');
 			console.log(data);  
@@ -159,7 +176,6 @@ angular.module('starter.controllers', [])
 			console.log('Success');
 			console.log(data);
 			$scope.place = data;
-			//$stateParams.place.vote = newData.vote;
 		}).error(function(data) { 
 			console.log('Failure');
 			console.log(data);  
@@ -175,7 +191,6 @@ angular.module('starter.controllers', [])
 			console.log('Failure');
 			console.log(data);
 		})	
-		
 	}
 })
 
@@ -184,28 +199,78 @@ angular.module('starter.controllers', [])
 	console.log($scope.data);
 	
 	$scope.applyFilter = function(data){
-		console.log("Status: " + data.pstatus);
-		
 		$state.go('app.places', {ftype: data.type, fstatus: data.pstatus, fradius: data.radius, flat: data.location, flong: data.location});
 	}
 
 })
 
-//, $cordovaGeolocation, $ionicLoading
-.controller('AddPlaceCtrl', function($scope, $http, ApiEndpoint){
-	$scope.data = "";
+.controller('AddPlaceCtrl', function($scope, $http, ApiEndpoint, $ionicLoading){
+	$scope.data = {};
 	
-	/*ionic.Platform.ready(function(){
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-	$cordovaGeolocation
-	.getCurrentPosition(posOptions)
+	var updateMap = function(posLat, posLong, notInit){
+		if (notInit){
+			var trLat = posLat.toFixed(5);
+			var trLong = posLong.toFixed(5);
+			$scope.data.location = trLat + ", " + trLong;
+		}
+		
+		var myLatlng = new google.maps.LatLng(posLat, posLong);
+	 
+		var mapOptions = {
+			center: myLatlng,
+			zoom: 16,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+ 
+		var map = new google.maps.Map(document.getElementById("mapAdd"), mapOptions);
+ 
+		var marker = new google.maps.Marker({
+			position: myLatlng,
+			map: map
+		});
+	};
+
 	
-   .then(function (position) {
-      console.log(position.coords.latitude + '   ' + position.coords.longitude);
-	  $scoped.data = {"latitude": position.coords.latitude, "longitude": position.coords.longitude};
-   }, function(err) {
-      console.log(err);
-   })
-    });*/
+	$scope.init =  function() {
+		var posLat, posLong;
+		
+		navigator.geolocation.getCurrentPosition(function(pos) {
+			posLat = pos.coords.latitude;
+			var trLat = posLat.toFixed(5);
+			posLong = pos.coords.longitude;
+			var trLong = posLong.toFixed(5);
+			
+			updateMap(posLat, posLong, false);
+		});
+    };
+	
+	$scope.getCurrent =  function() {
+		var posLat, posLong;
+		
+		navigator.geolocation.getCurrentPosition(function(pos) {
+			posLat = pos.coords.latitude;
+			posLong = pos.coords.longitude;
+			
+			updateMap(posLat, posLong, true);
+		});
+    };
+	
+	$scope.getAddress =  function() {
+		var geocoder = new google.maps.Geocoder();
+		var address = $scope.data.location;
+		console.log(address);
+		geocoder.geocode({'address': address}, function(results, status){
+			if (status == 'OK'){
+				console.log(results);
+				var posLat = results[0].geometry.location.lat();
+				var posLong = results[0].geometry.location.lng();
+			
+				updateMap(posLat, posLong,true);
+			} else{
+				alert('Location address not valid, please enter a new address and hit the update button again');
+			}
+		});
+    };
+
 	
 });

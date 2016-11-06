@@ -1,2 +1,16 @@
 Hw2/runnersaid/target/*
 Hw3/runnersaidapi/target/*
+Hw4/bower_components/
+Hw4/mapEx
+Hw4/mapExBlank
+ionic-tutorial-master
+appengine-endpoints-helloworld-java-maven
+*.bowerrc
+*.editorconfig
+Hw4/myApp/bower.json
+*.xml
+Hw4/myApp/ionic.config.json
+Hw4/myApp/gulpfile.js
+Hw4/myApp/www/manifest.json
+Hw4/myApp/package.json
+Hw4/myApp/www/img/ionic.png

@@ -1,6 +1,6 @@
 
 <ion-view view-title="Place">
-  <ion-content class="padding">
+  <ion-content class="padding" ng-controller="PlaceCtrl">
     <h3 class="item-text-wrap">{{place.name}}</h3>
 	<ion-list>
 		<div class="row">
@@ -16,7 +16,8 @@
 			</div>
 		</div>
 		Location: {{place.latitude}}, {{place.longitude}}
-		
 	</ion-list>
+	<div id="map" data-tap-disabled="true"></div>
   </ion-content>
 </ion-view>
+

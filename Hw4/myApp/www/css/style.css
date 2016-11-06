@@ -3,3 +3,35 @@
 .bigger-icon{
 	font-size:250%;
 }
+
+#map{
+	width: 100%;
+	height: 300px;
+	background-color: grey;
+}
+
+#mapAdd{
+	width: 100%;
+	height: 250px;
+	background-color: grey;
+	padding-bottom: 20px;
+}
+
+.angular-google-map-container{
+	height: 300px;
+	width: 100%;
+	background-color: grey;
+}
+
+.ctrButton{
+	text-align: center;
+}
+
+.centerBtn{
+	width: 100%;
+}
+
+.halfBtn{
+	width: 50%;
+	text-align: center;
+}
