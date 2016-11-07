@@ -63,6 +63,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   .state('app.single', {
 	cache: false,
     url: '/places/:placeId',
+	params: {
+		placeId: null,
+	},
     views: {
       'menuContent': {
         templateUrl: 'templates/place.html',
@@ -71,8 +74,29 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
   
+  .state('app.map', {
+	cache: false,
+    url: '/placesMap',
+	params: {
+		ftype: null, 
+		fstatus: null, 
+		fradius: null, 
+		flat: null, 
+		flong: null
+	},
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/placesMap.html',
+        controller: 'PlacesMapCtrl'
+      }
+    }
+  })
+  
    .state('app.filter', {
       url: '/filter',
+	  params: {
+		fpath: null
+	},
       views: {
         'menuContent': {
           templateUrl: 'templates/filter.html',

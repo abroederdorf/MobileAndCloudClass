@@ -10,9 +10,15 @@
 	background-color: grey;
 }
 
-#mapAdd{
+#mapView{
 	width: 100%;
-	height: 250px;
+	height: 100%;
+	background-color: grey;
+}
+
+.smallMap{
+	width: 100%;
+	height: 200px;
 	background-color: grey;
 	padding-bottom: 20px;
 }
@@ -34,4 +40,8 @@
 .halfBtn{
 	width: 50%;
 	text-align: center;
+}
+
+.infoText{
+	color: black;
 }

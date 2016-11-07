@@ -30,9 +30,10 @@
 	</div>
 	<a class="button button-stable button-block" ng-click="getAddress()"><span class="ion-map"> Update to Address</span></a>
 	<a class="button button-stable button-block" ng-click="getCurrent()"><span class="ion-location"> Use Current Location</span></a>
-	<div id="mapAdd" data-tap-disabled="false"></div>
+	<div id="mapAdd" class="smallMap" data-tap-disabled="false"></div>
   </ion-content>
-  <ion-footer-bar class="bar-balanced">
-		<a class="button button-clear centerBtn"><span class="ion-plus"></span> Add Place</a>
+  <ion-footer-bar class="bar-clear">
+		<a class="button button-balanced halfBtn" ng-click="addPlace()"><span class="ion-plus"></span> Add Place</a>
+		<a class="button button-assertive halfBtn" ng-click="addReset()"><span class="ion-close-round"></span> Reset Form</a>
 	</ion-footer-bar>
 </ion-view>

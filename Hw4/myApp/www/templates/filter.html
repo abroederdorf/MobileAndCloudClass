@@ -1,4 +1,4 @@
-<ion-view view-title="Filter Places">
+<ion-view view-title="Filter Places" ng-init="init()">
   <ion-content ng-app="starter" class="padding">
 	<div class="list">
 		<label class="item item-input item-select">
@@ -23,16 +23,22 @@
 		</label>
 		
 		<div>
-		<label class="item item-input">
-			<span class="input-label">Radius </span>
-			<input ng-model="data.radius" type="number" placeholder="Miles" required>
-		</label>
-		<label class="item item-input">
-			<span class="input-label">Location </span>
-			<input ng-model="data.location" type="text" placeholder="loc" required>
-		</label>
+			<label class="item item-input">
+				<span class="input-label">Radius </span>
+				<input ng-model="data.radius" type="number" placeholder="Miles" required>
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Location </span>
+				<input ng-model="data.flocation" type="text" placeholder="{{data.flocation}}" required>
+			</label>
 		</div>
-		<button class="button button-block button-balanced" ng-click="applyFilter(data)">Filter</button>
+		<a class="button button-stable button-block" ng-click="getAddress()"><span class="ion-map"> Update to Address</span></a>
+		<a class="button button-stable button-block" ng-click="getCurrent()"><span class="ion-location"> Use Current Location</span></a>
+		<div id="mapFilter" class="smallMap" data-tap-disabled="false"></div>
 	</div>
   </ion-content>
+  <ion-footer-bar class="bar-clear">
+		<a class="button button-balanced halfBtn" ng-click="applyFilter(data)"><span class="ion-funnel"></span> Apply Filter</a>
+		<a class="button button-assertive halfBtn" ng-click="resetFilter()"><span class="ion-close-round"></span> Reset Filter</a>
+	</ion-footer-bar>
 </ion-view>
