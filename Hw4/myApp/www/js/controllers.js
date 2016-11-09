@@ -225,7 +225,7 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('PlaceCtrl', function($scope, $stateParams, $http, ApiEndpoint, $ionicLoading) {
+.controller('PlaceCtrl', function($scope, $stateParams, $http, ApiEndpoint, $ionicLoading, $state) {
 	$scope.place = "";
 	
 	$http.get(ApiEndpoint.url + '/places?id=' + $stateParams.placeId)
@@ -286,7 +286,7 @@ angular.module('starter.controllers', [])
 			console.log(data);
 		})	
 		
-	}
+	};
 	
 	$scope.voteDown = function(placeId){
 		console.log("Id: " + placeId);
@@ -316,7 +316,11 @@ angular.module('starter.controllers', [])
 			console.log('Failure');
 			console.log(data);
 		})	
-	}
+	};
+	
+	$scope.go = function(path, id){
+		$state.go(path, {placeId: id});
+	};
 })
 
 .controller('FilterCtrl', function($scope, $stateParams, $http, ApiEndpoint, $state) {
@@ -563,6 +567,7 @@ angular.module('starter.controllers', [])
 					}).error(function(data) { 
 						console.log('Failed to add place');
 						console.log(data);  
+						alert("This place already exists.");
 					});
 				} else{
 					alert('Location address not valid, please enter a new address');
@@ -575,4 +580,203 @@ angular.module('starter.controllers', [])
 	$scope.addReset = function(){
 		$scope.data = {};
 	}
+})
+
+.controller('EditPlaceCtrl', function($scope, $http, $state, $stateParams, ApiEndpoint, $ionicLoading){
+	$scope.data = {};
+	
+	//Initialize page - update map and fill in values
+	$scope.init = function() {
+		
+		//Get data
+		$http.get(ApiEndpoint.url + '/places?id=' + $stateParams.placeId)
+		.success(function(results, status, headers, config){
+			console.log('Success');
+			console.log(results);
+			$scope.data = results;
+			
+			//Update form
+			var name = document.getElementById('editName');
+			name.value = $scope.data.name;
+			
+			var type = document.getElementById('editType');
+			type.value = $scope.data.type;
+			
+			console.log("Check status: " + ($scope.data.status == "Open"));
+			if ($scope.data.status == "Open")
+				$scope.data.status = true;
+			else
+				$scope.data.status = false;
+				
+			var location = document.getElementById('editLoc');
+			var eLat = $scope.data.latitude;
+			var eLong = $scope.data.longitude;
+			var trLat = eLat.toFixed(5);
+			var trLong = eLong.toFixed(5);
+			location.value = trLat + ", " + trLong;
+			console.log(location.value);
+			
+			//Update map
+			var myLatlng = new google.maps.LatLng(eLat, eLong);
+ 
+			var mapOptions = {
+				center: myLatlng,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+	 
+			var map = new google.maps.Map(document.getElementById("mapEdit"), mapOptions);
+			
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map
+			});
+		})
+		.error(function(results, status, headers, config){
+			console.log('Failure');
+			console.log(results);
+		})
+	};
+	
+	//Updates map with coordinates and sets the data.location variable in the scope
+	var updateMap = function(posLat, posLong, notInit){
+		if (notInit){
+			var trLat = posLat.toFixed(5);
+			var trLong = posLong.toFixed(5);
+			document.getElementById('editLoc').value = trLat + ", " + trLong;
+		}
+		
+		var myLatlng = new google.maps.LatLng(posLat, posLong);
+	 
+		var mapOptions = {
+			center: myLatlng,
+			zoom: 16,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+ 
+		var map = new google.maps.Map(document.getElementById("mapEdit"), mapOptions);
+ 
+		var marker = new google.maps.Marker({
+			position: myLatlng,
+			map: map
+		});
+	};
+	
+	//Gets current location and calls update map with coordinates
+	$scope.getCurrent =  function() {
+		navigator.geolocation.getCurrentPosition(function(pos) {
+			var posLat = pos.coords.latitude;
+			var posLong = pos.coords.longitude;
+			
+			updateMap(posLat, posLong, true);
+		});
+    };
+	
+	//Get geocode for address, then call update map with new coordinates
+	$scope.getAddress =  function() {
+		var geocoder = new google.maps.Geocoder();
+		var address = document.getElementById('editLoc').value;
+		console.log("Address: " + address);
+		geocoder.geocode({'address': address}, function(results, status){
+			if (status == 'OK'){
+				console.log(results);
+				var posLat = results[0].geometry.location.lat();
+				var posLong = results[0].geometry.location.lng();
+			
+				updateMap(posLat, posLong,true);
+			} else{
+				alert('Location address not valid, please enter a new address and hit the update button again');
+			}
+		});
+    };
+
+	//Get data from form, validate, and send post request
+	$scope.editPlace = function(){
+		
+		//Validate form
+		var valid = false, vLoc = false;
+		
+		//Check name and type
+		var vName = ($scope.data.name != null) ? true : false;
+		var vType = ($scope.data.type != null) ? true : false;
+		//Get status
+		var pStatus = ($scope.data.status == true) ? 'Open' : 'Closed';
+			
+		//Check location
+		console.log("Location: " + $scope.data.location);
+		console.log("Location: " + document.getElementById('editLoc').value);
+		if (document.getElementById('editLoc').value != null)
+			vLoc = true;
+		
+		//Check if all fields valid, otherwise issue alert
+		console.log("Valid: " + vName + vType + vLoc);
+		if (vName && vType && vLoc)
+			valid = true;
+		else{
+			var alertStr = "";
+			var fCount = 0;
+			if (!vName){
+				alertStr += "Please provide a name";
+				fCount++;
+			}
+			if (!vLoc){
+				if (fCount > 0)
+					alertStr += " and the location";
+				else
+					alertStr += "Please provide the location";
+				fCount++;
+			}
+			if (fCount > 0)
+				alertStr += " for the place you are adding."
+			if (!vType){
+				if (fCount > 0)
+					alertStr += " Also select a type for the place.";
+				else
+					alertStr += "Please select a type for the place you are adding.";
+			}
+			alert(alertStr);
+		}
+		
+		if (valid){
+			//Get address coordinates
+			var geocoder = new google.maps.Geocoder();
+			var address = document.getElementById('editLoc').value;
+			console.log("Address: " + address);
+			geocoder.geocode({'address': address}, function(results, status){
+				if (status == 'OK'){
+					console.log(results);
+					var posLat = results[0].geometry.location.lat();
+					var posLong = results[0].geometry.location.lng();
+					updateMap(posLat, posLong,true);
+					
+					//Create post request to add place
+					//Login not implemented yet so hardcoding user Id
+					var req = {
+						method: 'PUT', 
+						url: ApiEndpoint.url + '/places',
+						data: "type=" + $scope.data.type + "&name=" + $scope.data.name + "&status=" + pStatus + "&latitude=" + posLat + "&longitude=" + posLong + "&id=" + $stateParams.placeId,
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+					}
+					$http(req).success(function(postData) { 
+						console.log('Success');
+						console.log(postData);
+						$scope.place = postData;
+						$scope.data = {};
+						$state.go('app.single', {placeId: $scope.place.id});
+					}).error(function(data) { 
+						console.log('Failed to update place');
+						console.log(data); 
+						alert("The details for this update already exist in another place. Please update that place as needed.");
+					});
+				} else{
+					alert('Location address not valid, please enter a new address');
+				}
+			});
+		}		
+	};
+	
+	$scope.go = function(path, id){
+		$state.go(path, {placeId: id});
+	};
+
 });

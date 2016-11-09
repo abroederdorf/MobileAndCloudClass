@@ -20,5 +20,8 @@
 	<br>
 	<p>Status for {{place.name}} last updated {{place.statusDate}}</p>
   </ion-content>
+  <ion-footer-bar class="bar-stable">
+	<a class="button button-stable centerBtn" ng-click="go('app.edit', place.id)"><span class="ion-edit"></span> Edit Place</a>
+  </ion-footer-bar>
 </ion-view>
 

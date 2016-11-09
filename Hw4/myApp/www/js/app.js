@@ -41,6 +41,20 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+  
+  .state('app.edit', {
+	  cache: false,
+    url: '/edit/:placeId',
+	params: {
+		placeId: null,
+	},
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/edit.html',
+		controller: 'EditPlaceCtrl'
+      }
+    }
+  })
 
     .state('app.places', {
 	  cache: false,
