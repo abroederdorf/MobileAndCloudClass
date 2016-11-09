@@ -127,8 +127,7 @@ public class PlacesServlet extends HttpServlet {
 				if (thisPlace.type.equals(type) &&
 					(thisPlace.name.equals(name)) &&
 					(thisPlace.latitude == latitude) &&
-					(thisPlace.longitude == longitude) &&
-					(thisPlace.createdUserId == userId)){
+					(thisPlace.longitude == longitude)){
 						exists = true;
 				}
 			}
@@ -220,7 +219,6 @@ public class PlacesServlet extends HttpServlet {
 				(thisPlace.name.equals(name)) &&
 				(thisPlace.latitude == latitude) &&
 				(thisPlace.longitude == longitude) &&
-				(thisPlace.createdUserId == userId) &&
 				(thisPlace.id != id)){
 					exists = true;
 			}
@@ -310,7 +308,7 @@ public class PlacesServlet extends HttpServlet {
 		respMsg.flush();
 		respMsg.close();
 	}
-	else if (!valid){
+	else if (!valid && userId != -1){
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		respMsg.println("User id not valid");
 		respMsg.flush();
