@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>How-To: Center Map</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	</head>
+	<body>
+		<div id="pageDiv">
+			<div id="navBar"></div>
+			<script src='js/navBar.js'></script>
+			<div class="container">
+				<h1>Basic Map</h1>
+				<hr>
+				<h3>Center Map</h3>
+				<p>
+				This section of the demo will first step through how to center the map based on the user's current location, then add the ability for the user to specify an address to center the map at. This capability could extend to users adding information at a location other than where they currently are.
+				</p>
+				<br>
+				<h4>Current Location</h4>
+				<p>
+				To allow the user to center the map at her/his current location, the first step is to update the map.html view to include a button (line 3). Add this button before the map division so the button will be available at the top of the screen. Creating the button utilizes the Ionic <a href="http://ionicframework.com/docs/components/#buttons">button</a> CSS component. The element includes the button class, a button color of gray resulting from the class button-stable, and creating a full width screen button by using the button-block class. Associate a function with the click action using the <a href="https://docs.angularjs.org/api/ng/directive/ngClick">ng-click</a> directive from AngularJS, specifying the function in the controller to be getCurrent(). For the label of the button, an <a href="http://ionicons.com/">Ionic icon</a> of a map marker is used along with the word Current.
+				</p>
+				<p>
+				<b>File: map.html</b>
+				<script src="https://gist.github.com/abroederdorf/5638019c758481558fc25306b0357d23.js"></script>
+				</p>
+				<p>
+				Next reconfigure the map controller, MapCtrl. As the map can be created from several potential initial data sets, either the default Seattle position or the user's location, abstract this into its own function called updateMap (lines 20 - 38). This means the initialization function, $scope.init() on line 4, is modified to pass the Seattle coordinates to updateMap() (line 6). The same steps followed for adding the basic map are now in the updateMap function including creating a LatLng object with the position coordinates passed as input, setting the map options, creating the map, and finally adding the map marker before assigning the map to the scope variable.
+				</p>
+				<p>
+				The completely new function is getCurrent (lines 10 - 17), which was specified as the function for the ng-click event of the button in map.html. Since this function is both in the view and controller, $scope is used to pass data if needed. This function utilizes the getCurrentPosition method of the cordova <a href="https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/">geolocation plugin</a> to get the current position from the phone's location services. The location coordinates of the current position are then passed as input to the updateMap function to create a new map centered at this location with a corresponding marker.
+				</p>
+				<p>
+				<b>File: controllers.js (only MapCtrl shown)</b>
+				<script src="https://gist.github.com/abroederdorf/f63eae4bd1d8e794cc2e0198e0075f68.js"></script>
+				</p>
+				<br>
+				<h4>User Specified Location</h4>
+				<p>
+				There are various use cases for a user wanting to specify the location rather than using her/his current location. Since users generally don't have the exact coordinates for a location, entering an address is much easier. To turn an addess into the needed coordinates for the map, the Google Maps Geocoding API is used. Again, from the Google API Console in the same project you created, select enable APIs. Then select Google Maps Geolocation API from the Google Maps APIs list to enable it. The <a href="https://developers.google.com/maps/documentation/javascript/geocoding#ReverseGeocoding">reverse geocoding</a> function from this API will be used in a new function for the app.
+				</p>
+				<p>
+				As the first step, make changes to the map.html file to add a text input field for the user to add the address, then add another button to update the map based on the address. A new division is added with a class of list to display the input field and button in a coherent manner using the Ionic list class (line 3). Then another division is added within this for the input field (line 4). The first element within this division is the input label using the classes item and item-input to indicate the element is an item of the list as well as an input field (line 5). A span element is used for the label itself (line 6), then the input field is specified (line 7). For passing data through the scope between the view and controller, the <a href="https://docs.angularjs.org/api/ng/directive/ngModel">ng-model</a> directive in AngularJS is specified as data.address. This directive binds the input field in the view with a property in the scope that can then be used within the controller. The type is also specified to text, and the optional placeholder field is defined. After this division, a new division is also created with a class of <a href="http://ionicframework.com/docs/components/#button-bar">button-bar</a> (line 10). This will allow the two buttons to be inline. The existing button for current is modified slightly by removing the button-block class as the button-bar division will handle creating equally sized buttons inline with each other. Then a new button is specified for getting the address. Again, an ng-click event is defined with a new function called getAddress. An Ionic icon for a map is used as part of the button label too. The style is updated slightly for the myMap element, changing the height from 100% to 80% to account for the input field and buttons.
+				</p>
+				<p>
+				<b>File: style.css</b>
+				<script src="https://gist.github.com/abroederdorf/38eac49d9bdbe4a38c3e32ab9790f358.js"></script>
+				</p>
+				<p>
+				<b>File: map.html</b>
+				<script src="https://gist.github.com/abroederdorf/dbeef3867b96ea4ec29df16a8eea850c.js"></script>
+				</p>
+				<p>
+				The new look of the map view resulting from the changes:
+				<br><center><a href="img/centerMap_userScsht.png"><img class="phoneScreenshot" src="img/centerMap_userScsht.png"></a></center>
+				</p>
+				<p>
+				Once the updates have been made to the map.html and style.css files, add the new getAddress function to the map controller, MapCtrl. This function is added from lines 21 to 36. Before adding this function, on line 2 initialize the $scope.data to empty. This creates the data object within the scope for use within the getAddress function. Within the getAddress function, first create a new <a href="https://developers.google.com/maps/documentation/javascript/geocoding#Geocoding">Google Maps Geocoder</a> object (line 22). Next assign the address from the input field in map.html to a variable named adddress (line 23). To do this $scope is utilized to share data between the view and controller. For debugging purposes, this address is logged to the console to ensure the data is retrieved properly. Then the geocode function of the geocoder object is utilized with the address (line 25). If an OK status is returned, the results are logged to the console again for debugging purposes (lines 26 - 27). Then the latitude and longitude coordinates are retrieved from the result object (lines 28 - 29), which are then passed to the updateMap function (line 31). If there is an error, an alert is triggered to let the user know that the address is not valid (line 33).
+				</p>
+				<p>
+				<b>File: controllers.js (only MapCtrl shown)</b>
+				<script src="https://gist.github.com/abroederdorf/66b066997f40ab0f87d52e98d1c467b5.js"></script>
+				</p>
+				<p>
+				Once these changes are implemented, you can test your app. The following is a screenshot of testing the app in a browser. From the controller.js file you see the data that was logged in the console, including the address from the input field and the object returned from the Google Maps Geocoding API. For this example Gasworks Park, Seattle, WA was entered as the address and the map correctly updates to show a marker at this location. It's usually a good idea if you've only been using the browser to test, to test the app on a phone after major changes to make sure everything is working as expected. 
+				<br>
+				<center><a href="img/centerMap_user.png"><img src="img/centerMap_user.png"></a></center>
+				</p>
+				
+				<nav aria-label="...">
+				  <ul class="pager">
+					<li class="previous"><a href="addMap.html"><span aria-hidden="true">&larr;</span> Basic Map: Add Map</a></li>
+					<li class="next"><a href="customMarkers.html">Custom Markers <span aria-hidden="true">&rarr;</span></a></li>
+				  </ul>
+				</nav>
+				<div id="pageFooter"></div>
+				<script src='js/footer.js'></script>
+			</div>
+		</div>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+

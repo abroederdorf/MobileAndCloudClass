@@ -1,0 +1,42 @@
+body{
+	padding-top: 75px;
+	padding-bottom: 30px;
+}
+
+img{
+	max-width: 50%;
+}
+
+hr{
+	border-color: gray;
+}
+
+.navbar-inverse{
+	background-color: #154360;
+}
+
+.inlineCode{
+	color: black;
+	background-color: #F2F4F4;
+	border: lightgray solid 1px;
+	border-radius: 5px;
+	font-family: monospace;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.blockCode{
+	color: black;
+	background-color: #F2F4F4;
+	border: lightgray solid 1px;
+	border-radius: 5px;
+	font-family: monospace;
+	padding: 5px;
+	display: block;
+	max-width: 75%;
+	margin-left: 20px;
+}
+
+.phoneScreenshot{
+	max-height: 500px;
+}

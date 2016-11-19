@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>How-To: Custom Markers</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	</head>
+	<body>
+		<div id="pageDiv">
+			<div id="navBar"></div>
+			<script src='js/navBar.js'></script>
+			<div class="container">
+				<h1>Custom Markers</h1>
+				<p>Now that you have a basic map with the ability to specify where to center it, let's add some data to the map. For this you'll use building permit data in Seattle, requested from the <a href="https://dev.socrata.com/foundry/data.seattle.gov/i5jq-ms7b">SODA consumer API</a>.  Once the data is retrieved, custom markers will be added to the map to display it. To make the GET request to the API use the <a href="https://docs.angularjs.org/api/ng/service/$http">http service</a> in AngularJS. To use the SODA API you do not need to get an API key but you'll be limited by the open quotas. Otherwise go through <a href="https://opendata.socrata.com/login">Socrata</a> to sign up for an account and get an API key. The demo will use the provided endpoint without an API key.
+				</p>
+				<p>
+				For implementing the custom makers, the map controller, MapCtrl, in controllers.js will get an overhaul. Since the intention of using custom markers is to potentially plot several points on the same map, the updateMap function needs to be reworked. Instead of accepting input arguments for latitude and longitude, it will accept a Google Maps LatLng object to specify the coordinates for where to center the map, and then an array of myMarker objects which contain data members for the location via a Google Maps LatLng object along with a string to define the type of icon to use. Based on this general overview of the initial changes, lets look at each one in more detail.
+				</p>
+				<br>
+				<h4>myMarker Class</h4>
+				<p>
+				At the bottom of the controllers.js file, define a new class for myMarker (lines 115 - 120). The definition of the class includes the constructor which takes the location, a Google Maps LatLng object, and a string to define the icon. The location LatLng object is created as previously done using the Google Maps API, as seen in the initialization function on line 13. A latitude and longitude are the two input arguments to the LatLng class constructor to create a new object, which in the demo is stored in the myLatlng variable. For customizing the icons, the <a href="https://developers.google.com/chart/infographics/docs/dynamic_icons?csw=1#pins">Google Charts</a> API is used. The icons are specified to be a pin with a letter (d_map_pin_letter) and color. After specifying the pin type, define the letter and color of the icon, <span class="inlineCode">chlds=[LETTER]|[COLOR_CODE]</span>, as seen in line 103.
+				</p>
+				<br>
+				<h4>Modifications to updateMap</h4>
+				<p>
+				First, the input arguments are changed for the updateMap function on line 46 to center and markers. Center is the variable that will be the LatLng object of the coordinates of where to center the map. Markers will be an array of myMarker objects to plot. Remove the LatLng object created as this is now passed as an input parameter. The zoom level has changed to 12 for a more appropriate view of the data. This could potentially be another input parameter so it can be specified for the specific applications. The only other change made to the function is to the marker. Rather than creating one marker, the JavaScript array method <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a> is used with the markers array to make a new marker for each element (permit) represented in the array (lines 56 - 62).
+				</p>
+				<br>
+				<h4>Modifications to functions: init, getCurrent, and getAddress</h4>
+				<p>
+				For the init function, a LatLng object is created with the default Seattle coordinates (line 13). This is then used as input to the getData function (line 14) which calls the updateMap function with both this center location, along with an array of markers. Similar changes are made to the getCurrent function as well. The latitude and longitude values returned from the Cordova geolocation plugin are used to create a LatLng object, myLatlng, which is passed to the getData function (line 23). The same changes are also made in the getAddress function. If the geocoder is a success, a LatLng object is created from the returned latitude and longitude. That is then passed to the getData function (line 38).
+				</p>
+				<br>
+				<h4>Define the getData Function</h4>
+				<p>
+				Now define the getData function in the associated map controller, MapCtrl, in controllers.js. As stated earlier, the http service in AngularJS is utilized for making the GET request to the API. To use this service within the controller, $http needs to be added as an input to the function (line 7). For this demo, data is retrieved for construction permits issued after 11-07-2016, with the following URL
+				<br>
+				<br><span class="blockCode">https://data.seattle.gov/resource/mags-97de.json?permit_type=Construction&$where=issue_date>'2016-11-07T00:00:00.000'</span>
+				<br>
+				This is the only parameter to the $http.get function on line 69. If the response is a failure the error is logged in the console (lines 108 - 111). If the response is a success, an array of myMarker objects is created for the results returned and then passed to the updateMap function along with input parameter center that specifies the coordinates for centering the map. The first couple of statements, if the response is a success, log the returned data to the console (lines 72 - 73) and the results are saved to the permit variable in the scope (line 74). Next an empty array is created (line 77), which will have the myMarker objects added. The forEach function is used on the $scope.permits variable (line 78). For each permit in that array, a LatLng object is created based on the returned latitude and longitude and assigned to the theLatlng variable (line 79). Next, the letter is assigned for the category of the permit utilizing a set of conditional if/else-if statements: S for single family/duplex, M for multifamily, C for commerical, and I for institutional (lines 82 - 89). Finally the color is assigned based on the permit value utilizing another set of conditional if/else-if statements: green for &lt $50,000, blue for &gt= $50,000 and &lt $100,000, yellow for &gt= $100,000 and &lt $500,000, and red for anything &gt $500,000 (lines 92 - 99). The letter and color variables are then used to construct the icon string when creating a myMarker object pushed to the theMarkers array (line 102). Finally the center input parameter along with the theMarkers array are passed to the updateMap function (line 106).
+				</p>
+				<p>
+				<b>File: controllers.js</b>
+				<script src="https://gist.github.com/abroederdorf/0bdcf6c388642bacf00bf5de1d5a7b9f.js"></script>
+				</p>
+				<p>
+				Below is a view of the data plotted on the map for the Seattle building permits. Test the changes implemented in the map controller by using your current location to make sure the map re-centers at your location while still displaying the custom makers for the data. Another test is to specify an address, click the address button and ensure the map recenters at this location while still displaying the custom markers.
+				<br><br>
+				Category
+				<ul>
+					<li>S: Single family/duplex</li>
+					<li>M: Multifamily</li>
+					<li>C: Commercial</li>
+					<li>I: Institutional</li>
+				</ul>
+				Permit Value
+				<ul>
+					<li>Green: &lt $50,000</li>
+					<li>Blue: &gt= $50,000 and &lt $100,000</li>
+					<li>Yellow: &gt= $100,000 and &lt $500,000</li>
+					<li>Red: &gt $500,000</li>
+				</ul>
+				<br>
+				<center><a href="img/customMarker_Data.png"><img class="phoneScreenshot" src="img/customMarker_Data.png"></a></center>
+				</p>
+				
+				<nav aria-label="...">
+				  <ul class="pager">
+					<li class="previous"><a href="centerMap.html"><span aria-hidden="true">&larr;</span> Basic Map: Center Map</a></li>
+					<li class="next"><a href="informationWindows.html">Information Windows <span aria-hidden="true">&rarr;</span></a></li>
+				  </ul>
+				</nav>
+				<div id="pageFooter"></div>
+				<script src='js/footer.js'></script>
+			</div>
+		</div>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+

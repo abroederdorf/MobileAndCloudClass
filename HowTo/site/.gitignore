@@ -1,0 +1,8 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+css/bootstrap*
+fonts/
+img/2016_11_13_18_22_13.mp4
+js/bootstrap*
+js/npm.js

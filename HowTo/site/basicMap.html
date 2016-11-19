@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>How-To: Basic Map</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	</head>
+	<body>
+		<div id="pageDiv">
+			<div id="navBar"></div>
+			<script src='js/navBar.js'></script>
+			<div class="container">
+				<h1>Basic Map</h1>
+				<p>This section will guide you through adding a basic Google Map to your app using the Google Maps API. It will also discuss how to center the map using the current location or specifying a location and using reverse geocoding to get the position coordinates. To start, you'll clean up the default files in your sidemenu project.
+				</p>
+				<hr>
+				<h4>Cleaning Up Sidemenu Project Default Files</h4>
+				<p>
+				You’ll start building out your app next. The app will leverage Google Maps to view information about building permits in Seattle. First, let’s cleanup some of the base files provided. The app.js file in the js folder provides the URL routing for navigating the pages. At the top of the file the dependencies are listed. The module is named starter, followed by an array of required items including ionic and starter.controllers. starter.controllers is defined in the controllers.js file.
+				</p>
+				<p>
+				<span class="blockCode">angular.module(‘starter’, [‘ionic’, ‘starter.controllers’])</span>
+				</p>
+				<p>
+				Further down in the file the configuration is defined, which includes various states. These states provide the URL routing for the different pages. Each state starts with a name, then has several options defined including the url and views which are defined using the template URL for the page and the associated controller. 
+				</p>
+				<p>
+				First, create a state for your map view (lines 31 - 39). The state name is app.map and the url for routing is defined as /map. Then define the view by specifying the associated template, map.html, and controller, MapCtrl. Next, delete the default added states for browse, view, playlists, and single. You also need to update the default URL router provider at the bottom to route to /map instead of /playlists (line 42).
+				<p>
+				<b>File: app.js</b>
+				<script src="https://gist.github.com/abroederdorf/eb78274dd906e2568dc19d2fa002e2dc.js"></script>
+				<p>
+				Next clean up the controller.js file by removing the controllers defined for the pages that won’t be used: PlaylistsCtrl and PlaylistCtrl. Also, remove all the login related functions in the AppCtrl controller as it won't implemented in this demo. Once the code has been cleaned up to remove what won't be used, a new controller for the map view can be added (lines 6 & 7). Remember in the app.js file, in the state defined for map the controller was specified to be MapCtrl, so add an empty controller for this.
+				</p>
+				<b>File: controllers.js</b>
+				<script src="https://gist.github.com/abroederdorf/687f6f648d55c514872f1c73b4fe6f99.js"></script>
+				<p>
+				Next clean up the menu.html file. Change the name of the menu from Left to Menu (line 17). Delete the items for login, search, browse, and playlists. Finally add an item to access the map page (lines 20 - 23).
+				</p>
+				<b>File: menu.html</b>
+				<script src="https://gist.github.com/abroederdorf/c8fe7f9c420622bf6f2ce71450fd184f.js"></script>
+				<p>
+				As the final step, create a new view file, map.html. This is a pretty basic view because the page will be a map without any other information. Add a division with an id that will be used in the controller to add a map to the page (line 3). Also name the view Map which will be shown in the header of the app (line 1).
+				</p>
+				<b>File: map.html</b>
+				<script src="https://gist.github.com/abroederdorf/be6d83135668565056fa0bd460e3e514.js"></script>
+				<p>
+				Once you’ve implemented these initial files, your app looks like the following:<br>
+				<center><a href="img/step1_map.png"><img class="phoneScreenshot" src="img/step1_map.png"></a> <a href="img/step1_menu.png"><img class="phoneScreenshot" src="img/step1_menu.png"></a><br>The landing page <em>[left] </em> and side menu <em>[right]</em> of our map app</center>
+				</p>
+				
+				<nav aria-label="...">
+				  <ul class="pager">
+					<li class="previous"><a href="gettingStarted.html"><span aria-hidden="true">&larr;</span> Getting Started</a></li>
+					<li class="next"><a href="addMap.html">Basic Map: Add Map <span aria-hidden="true">&rarr;</span></a></li>
+				  </ul>
+				</nav>
+				<div id="pageFooter"></div>
+				<script src='js/footer.js'></script>
+			</div>
+		</div>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>How-To: Information Windows</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	</head>
+	<body>
+		<div id="pageDiv">
+			<div id="navBar"></div>
+			<script src='js/navBar.js'></script>
+			<div class="container">
+				<h1>Information Windows</h1>
+				<p>
+				The last step in building the Seattle building permit app is to create <a href="https://developers.google.com/maps/documentation/javascript/examples/infowindow-simple">information windows</a>, using the Google Maps API, that appear when a marker is clicked. This information window will contain a few details with a link that leads to a detailed page with more information for the selected permit. To accomplish this, the map controller, MapCtrl, in controllers.js is updated to create an information window for each marker that is triggered with a click event on the marker. The myMarker class is also updated to contain more information that will be needed for the information window. A new view is used by adding permit.html to display the details. This requires adding a new state to the app.js file to handle this new url routing, as well as adding a permit controller, PermitCtrl, to controllers.js.
+				</p>
+				<br>
+				<h4>Add Information Windows</h4>
+				<p>
+				The first step is modifying the myMarker class to also include category, address, value, and id. This is done by adding these as input parameters in the constructor and then assigning them to the object (lines 148 - 156). Once that is updated, add that information when creating the theMarkers array in the getData function (line 116). Include these input values in the constructor by adding permit.category as the category, permit.address as the address, permit.value as the value, and permit.application_permit_number as the id.
+				</p>
+				<p>
+				Next add the code to create the information windows in the updateMap function inside the markers forEach function. If the marker element contains information to be displayed in an information window, then create the window. This is done by first checking that the cateogry is defined and not null (line 64). Then a new infomation window is created in line 65. Next an event listener is added to the marker for a click event (line 66). The function then defines the contents of the information window for that specific marker. Line 69 adds the title for the information window, which in this application is the address of the permit. Line 70 adds the data including the category and value. Finally line 71 adds the link which will direct the user to the permit view with the specified permit id. This content is set as the content for the information window in line 73, and the open function is assigned on line 74. 
+				<br>
+				<br>The app should look like the following when a marker is clicked and the information window opens. Remember the link will not work yet as the permit view has not been implemented, that occurs in the following section.
+				<br><center><a href="img/infoWindow_window.png"><img class="phoneScreenshot" src="img/infoWindow_window.png"></a></center>
+				</p>
+				<br>
+				<h4>Permit View</h4>
+				<p>
+				The first step in creating the permit view is to create a new template, permit.html, in the templates folder. This template displays the data saved to the permit variable in the scope in the permit controller. An <a href="http://ionicframework.com/docs/components/#list">ion list</a> is used for displaying the details, with each detail listed as its own item. The format of wrapping each line of data in the ion-item tags is fairly straightforward, however, note the class specified for the last ion item for the description (lines 26 - 28). The class item-text-wrap is used to wrap the text within the item. Without this, Ionic does not wrap the text by default. The last element added on line 29 is a button to view the permit information provided through the Seattle website. The url for this page is returned as part of the data from the API. This url is passed to the ng-click defined function of openWindow. To open this in a browser window the ng-cordova in app browser plugin is used. To use this you must first add the plugin to the project, <span class="inlineCode">cordova plugin add cordova-plugin-inappbrowser</span>. Note that when displaying data on the page, the double curly braces are used {{ }} to bind expressions to elements, but when passing the data in the openWindow function these braces are not used as this is already an expression.
+				</p>
+				<p>
+				<b>File: permit.html</b>
+				<script src="https://gist.github.com/abroederdorf/c2dcf3e3a79041ec9a8a43700d3a2ce5.js"></script>
+				</p>
+				<p>
+				The next step is to add a new state to app.js to route the app for the permit url. The new state is defined in lines 42 - 54. The name for this state is app.permit, and the cache option is set to false. The url is defined as /permit/:permitId where the permitId passed through this state parameter will be used in the controller. It is also specifically defined in the params option as well. For views, the templateUrl is set to templates/permit.html, which is the new view created in the previous step. The controller is set to PermitCtrl which will be created in the next step in controllers.js.
+				</p>
+				<p>
+				<b>File: app.js</b>
+				<script src="https://gist.github.com/abroederdorf/b13c43376bae3717be1a50e3bb8c9131.js"></script>
+				</p>
+				<p>
+				Finally the permit controller, PermitCtrl, is created in controllers.js in lines 130 - 147. First the permit variable is defined in the scope so data can be added to it from the request. As you may remember, an $http.get request was used to get all of the permit data. This is also used to get the data for the specified permit id. For this request the url input is
+				<br>
+				<br><span class="blockCode">"https://data.seattle.gov/resource/mags-97de.json?application_permit_number=" + $stateParams.permitId</span>
+				<br>
+				where the permit id is used from the state parameters. State parameters are used to pass data between controllers, in this case passing the permit id from the MapCtrl to PermitCtlr. If the request is successful, the data is logged in the console (lines 135 - 136), and then the first element in the returned array is assigned to the scope permit variable in line 137. When this variable is assigned in the scope, it is available for use within the view too. If the request results in an error, that is logged in the console as well (lines 139 - 142). The last item is defining the openWindow function which was assigned as the ng-click function for the button in the permit view, in permit.html. This is where the ng-cordova in app browser plugin gets used. The url is passed in the function so this is one input along with '_blank' option which means to open the browser within the app. '_system' is another option to open the window in the system's browser.
+				</p>
+				<p>
+				<b>File: controllers.js</b>
+				<script src="https://gist.github.com/abroederdorf/b6c79995bf8fefa011eb96ca947019eb.js"></script>
+				</p>
+				<p>
+				Now the entire app has been created to view information about Seattle building permits. The views below show the app flow from selecting a marker on the map and viewing the information window, to viewing the details on the permit page, to opening the browser window from the Seattle website with information about the permit. 
+				<br>
+				<center><a href="img/final_map.png"><img class="phoneScreenshot" src="img/final_map.png"></a> <a href="img/final_permit.png"><img class="phoneScreenshot" src="img/final_permit.png"></a> <a href="img/final_browser.png"><img class="phoneScreenshot" src="img/final_browser.png"></a></center>
+				</p>
+				<p>
+				Here's a quick <a href="img/2016_11_13_18_22_13.mp4">video</a> demonstrating the app.
+				</p>
+				<p>
+				Congratulations on completing this demo! You've learned how to add a Google Map to your Ionic app with side menu navigation, use the current location of the phone, and add data to the map using custom markers along with information windows to not only display details but also provide app navigation.
+				</p>
+				
+				<nav aria-label="...">
+				  <ul class="pager">
+					<li class="previous"><a href="customMarkers.html"><span aria-hidden="true">&larr;</span> Custom Markers</a></li>
+				  </ul>
+				</nav>
+				<div id="pageFooter"></div>
+				<script src='js/footer.js'></script>
+			</div>
+		</div>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+

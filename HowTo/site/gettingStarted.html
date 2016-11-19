@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>How-To: Getting Started</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	</head>
+	<body>
+		<div id="pageDiv">
+			<div id="navBar"></div>
+			<script src='js/navBar.js'></script>
+			<div class="container">
+				<h1>Getting Started</h1>
+				<p>
+				This section will guide you through getting setup to use Ionic and Cordova, and will result in creating a starter project using the sidemenu project template provided by Ionic.
+				</p>
+				<br>
+				<h4>1. Ensure Node.js Is Installed</h4>
+				<p>
+				This demo utilizes Node.js for building an app using the Ionic framework, so the first step is to ensure you have Node.js installed on your system. If you do not, go to <a href="http://nodejs.org/">http://nodejs.org</a> to install it.
+				</p>
+				<br>
+				<h4>2. Install Ionic Framework and Cordova</h4>
+				<p>
+				<span class="blockCode">npm install -g cordova ionic</span>
+				</p>
+				<p>
+				If you already have Ionic and Cordova installed, update it: <span class="inlineCode">npm update -g cordova ionic</span>. Note, this demo uses Ionic 1.0, not Ionic 2.0. If you wish to install Ionic 2.0 you would add the --v2 flag, <span class="inlineCode">npm install -g ionic --v2</span>
+				</p>
+				<br>
+				<h4>3. Create Ionic App</h4>
+				<p>
+				Ionic has three starter project templates you can use: blank, todo, and sidemenu. The blank project is blank, the todo project is based on tab navigation, and the sidemenu project is based on a side menu for navigation. For this demo you’ll be using the side menu navigation and will name the project mapEx. You can use a different name instead of mapEx that is more representative of your app. The command is ionic start, then the project name, followed by the project template type.
+				</p>
+				<p>
+				<span class="blockCode">ionic start mapEx sidemenu</span>
+				</p>
+				<p>
+				The side menu project is populated with several directories and files. Navigate to the directory of the project created, mapEx: <span class="inlineCode">cd mapEx</span>. Once in the directory you’ll notice folders for hooks, node_modules, plugins, scss, and www. The folder you’ll be mostly working in is www which contains the index.html file; templates folder for the various page views; js folder for the app.js file which handles the URL routing and the controllers.js file which includes all the logic for the app; as well as a css folder for any specific style files you want to use. The lib folder will contain files pertaining to plugins that are required for our app.
+				</p>
+				<br>
+				<h4>4. Test App</h4>
+				<p>
+				To test the app you can start it in a browser, run it in an emulator, or run it on a phone. To test it in a browser, type <span class="inlineCode">ionic serve</span>. This will open a new browser window. If you access the developer tools (CTRL + SHIFT + i in Chrome or Firefox), you can set the view to a device view to test the app in a mobile configuration. As you make changes to any of the files, the browser view will update in real time without having to relaunch it with the ionic serve command.
+				</p>
+				<p>
+				<center><a href="img/DevToolsDeviceView.png"><img src="img/DevToolsDeviceView.png"></a><br>Photo: In Chrome, you can select a responsive view and specify a standard device</center>
+				</p>
+				<p>
+				You can run your app on an <a href="https://developer.android.com/studio/run/emulator.html">emulator</a> or directly on your phone. To run it on your phone you’ll have to connect your phone with a USB cable and <a href="http://www.howtogeek.com/129728/how-to-access-the-developer-options-menu-and-enable-usb-debugging-on-android-4.2/">enable</a> Developer Options in the settings menu. From the Developer Options menu toggle on USB debugging. There are several other options you can select per your preference. 
+				</p>
+				<p>
+				Before you can run your app in an emulator or on your phone, you must add the platforms you want to build the app for. For android type <span class="inlineCode">ionic platform add android</span>. To build an iOS app instead, you’d replace android with ios. Next you need to build the app, <span class="inlineCode">ionic build android</span>. Finally you run the application, either with an emulator by typing <span class="inlineCode">ionic emulate android</span> or with your phone by typing <span class="inlineCode">ionic run android</span>. If you do not have a phone connected when you use the ionic run android command or your phone is not enabled for USB debugging, ionic will try to start the emulator.
+				</p>
+				<p>
+				Once you have your app running either in a browser, emulator, or on your phone you’ll see the pages of the base side menu project created. The side menu project uses the Playlists page as the landing page. From here you can select detailed pages for each playlist listed. This provides the framework for going from a list of items to a detailed page for one of the items. The side menu can be accessed from the menu icon in the top left (three horizontal lines), in which you can navigate to the other pages available including browse and search. You’ll notice there isn’t any real content provided but the framework starts you off with being able to create several pages accessible from the side menu, as well as getting to detailed views from a list of items. There’s even a login window provisioned for implementation.
+				</p>
+				<p>
+				<center><a href="img/start_landing.png"><img class="phoneScreenshot" src="img/start_landing.png"></a> <a href="img/start_menu.png"><img class="phoneScreenshot" src="img/start_menu.png"></a><br>The landing page <em>[left] </em> and side menu <em>[right]</em> of the base sidemenu Ionic project</center>
+				</p>
+				<nav aria-label="...">
+				  <ul class="pager">
+					<li class="previous"><a href="index.html"><span aria-hidden="true">&larr;</span> Home</a></li>
+					<li class="next"><a href="basicMap.html">Basic Map <span aria-hidden="true">&rarr;</span></a></li>
+				  </ul>
+				</nav>
+
+				
+				<div id="pageFooter"></div>
+				<script src='js/footer.js'></script>
+			</div>
+		</div>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

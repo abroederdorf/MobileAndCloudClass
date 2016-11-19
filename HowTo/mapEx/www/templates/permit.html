@@ -1,0 +1,35 @@
+<ion-view view-title="Permit Details">
+  <ion-content class="padding" ng-controller="PermitCtrl">
+    <h3 class="item-text-wrap">{{permit.address}}</h3>
+	<ion-list>
+		<ion-item>
+			Category: {{permit.category}}
+		</ion-item>
+		<ion-item>
+			Permit Type: {{permit.permit_type}}
+		</ion-item>
+		<ion-item>
+			Status: {{permit.status}}
+		</ion-item>
+		<ion-item>
+			Application Date: {{permit.application_date}}
+		</ion-item>
+		<ion-item>
+			Issue Date: {{permit.issue_date}}
+		</ion-item>
+		<ion-item>
+			Expiration Date: {{permit.expiration_date}}
+		</ion-item>
+		<ion-item>
+			Value: ${{permit.value}}
+		</ion-item>
+		<ion-item class="item-text-wrap">
+			Description: {{permit.description}}
+		</ion-item>
+			<a class="button button-stable button-block" ng-click="openWindow(permit.permit_and_complaint_status_url.url)">
+                View Permit Information
+            </a>
+	</ion-list>
+  </ion-content>
+</ion-view>
+

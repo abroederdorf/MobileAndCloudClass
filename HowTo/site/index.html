@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>How-To: Ionic with Google Maps</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	</head>
+	<body>
+		<div id="pageDiv">
+			<div id="navBar"></div>
+			<script src='js/navBar.js'></script>
+			<div class="container">
+				<p>Welcome to this how-to guide for creating an app using Google Maps with Ionic framework 1.0. This guide includes adding custom markers with information windows and getting the location for an address through reverse geocoding. The guide is based on a demo that creates a basic app with side menu navigation for viewing building permits in Seattle using open source data accessed through the SODA consumer API. There is documentation for implementing a basic map with Ionic using a blank template as well as documentation for all of the various components individually. However, there is no documentation that goes through the process of integrating everything to create a map with custom data in a side menu project using the Ionic framework, so this guide serves to expand upon current information to help fill that void.
+				</p>
+				<p>
+				This how-to guide will step through the process of getting started, first adding a simple map and then adding custom markers and information windows based on data retrieved from an API. This guide presents files in their entirety when possible so that users are able to view the entire context of how the code works together. Line numbers are thus referenced within the guide to explain smaller sections of the code within each of these files.
+				</p>
+				<br>
+				<h4>How-To Guide Contents</h4>
+				<ul>
+					<li>
+						Getting Started
+						<ul>
+							<li>Setup Ionic and Cordova</li>
+							<li>Create Sidemenu Project</li>
+						</ul>
+					</li>
+					<li>
+						Basic Map
+						<ul>
+							<li>Cleanup Default Files</li>
+							<li>Add Google Map</li>
+							<li>Center at Current Location</li>
+							<li>Center at Specified Location - Reverse Geocoding</li>
+						</ul>
+					</li>
+					<li>
+						Custom Markers
+						<ul>
+							<li>Request Data from SODA API</li>
+							<li>Plot Custom Markers</li>
+						</ul>
+					</li>
+					<li>
+						Information Windows
+						<ul>
+							<li>Add Information Windows for Markers</li>
+							<li>Navigate To/From Detailed Page</li>
+						</ul>
+					</li>
+				</ul>
+				<br>
+				<h4>About Ionic</h4>
+				<p>
+				Ionic is an HTML5 framework that leverages web technologies like HTML5, CSS, and JavaScript to build hybrid apps. Combining this with Cordova, which provides access to the native capabilities of a phone, allows a developer to create a cross-platform app utilizing a single code base.  
+				</p>
+				<p>
+				While there are several options that can be used with Ionic to build an app, this demo will focus on using Cordova and AngularJS to create an Android app. Tools needed include Node.js, Ionic, and Cordova. There will also be a couple of APIs used that will require API keys. The specific commands shown are for developing on Windows and using a command window.
+				</p>
+				<nav aria-label="...">
+				  <ul class="pager">
+					<li class="next"><a href="gettingStarted.html">Getting Started <span aria-hidden="true">&rarr;</span></a></li>
+				  </ul>
+				</nav>
+				
+				<div id="pageFooter"></div>
+				<script src='js/footer.js'></script>
+			</div>
+		</div>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

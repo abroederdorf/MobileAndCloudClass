@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>How-To: Add Map</title>
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/style.css"> 
+	</head>
+	<body>
+		<div id="pageDiv">
+			<div id="navBar"></div>
+			<script src='js/navBar.js'></script>
+			<div class="container">
+				<h1>Basic Map</h1>
+				<hr>
+				<h4>Add Google Map</h4>
+				<p>
+				For this demo the Google Maps API will be utilized, so you'll need to register for an API key. From your <a href="https://code.google.com/apis/console">Google API Console</a>, register a new project that will use Google Maps. Once you create a new project, go to the library link to view all of the available APIs. Select the Google Maps JavaScript API to enable it. This should bring up a screen showing the API is enabled, with an option at the top to 'Go to Credentials'. Click this button to go to the credentials page. Make sure the Google Maps JavaScript API is selected in the dropdown menu and then click 'what kind of credentials do I need'. Step 2 should then show with your API key. You'll need to use this key in the following steps so keep it handy. If you need to access it again, from the project in Google APIs console, navigate back to the credentials section from the left hand navigation menu and it will be listed. You also need to download the ng-cordova files to use the Cordova plugins. Download the file from <a href="http://ngcordova.com/">ng-cordova</a> site and unzip the file to the lib folder within the www folder of your project. 
+				</p>
+				<p>
+				Next modify the index.html file. Some of the commented code was removed to clean the file up. Most importantly two scripts are added. A script for accessing the Google Maps JavaScript API was added after the script for app.js and before controllers.js (line 22). A script for accessing ng-cordova is also added before the cordova.js script (line17). Note, ensure the path reflects your current project's file directory as this is a source of error for many people. Within the www folder is the lib folder, and within that are the ng-cordova files in the ng-Cordova folder. Make sure the path reflects whatever these folders may be named in your specific project. Also add a title on line 6, for the demo define this to be My Map App. Nothing else needs to be added to the index.html file. As a note, lines 27 - 29 contain the code for each view. The template files then provide the content for the ion-nav-view tag.
+				</p>
+				<p>
+				<b>File: index.html</b>
+				<script src="https://gist.github.com/abroederdorf/8b3931bba2b6e4f0d648eba04cb30a27.js"></script>
+				</p>
+				<p>
+				After modifying the index.html file, make a couple additions to the style file, style.css in the css folder within www. Specify the height for scroll, and then provide dimensions for the map division that was created in map.html. The map should be full screen so specify the height and width to be 100%. Specify the map dimensions by referencing the id defined for the div in map.html, which is myMap.
+				</p>
+				<p>
+				<b>File: style.css</b>
+				<script src="https://gist.github.com/abroederdorf/3346d0380342210125c04692d8149809.js"></script>
+				</p>
+				<p>
+				Next add an initialization function to map.html. Specify the initialization function using the <a href="https://docs.angularjs.org/api/ng/directive/ngInit">ng-init</a> directive from AngularJS in the ion-view element on line 1. The function will be defined in controllers.js.
+				</p>
+				<p>
+				<b>File: map.html</b>
+				<script src="https://gist.github.com/abroederdorf/dbf23977b6b882f43859532c6636e1de.js"></script>
+				</p>
+				<p>
+				Finally some actual code is added to the controllers.js file for the map controller, MapCtrl. This will utilize the Google Maps JavaScript API to create a map centered at the provided coordinates, which are for Seattle in the demo. If you'd like to find the coordinates for a different location to center your map at, <a href="http://www.latlong.net/">LatLong.net</a> is a good resource. $scope is used to share information between a view and associated controller. $stateParams are used to share information between controllers. Both of these are specified as input to the function for the map controller (line 1). Next, define the initialization function, $scope.init() (line 2). First create an empty map variable in the scope (line 3), which will be assigned after the map object is created. Next define a variable to hold a Google Maps <a href="https://developers.google.com/maps/documentation/javascript/reference#LatLng">LatLng</a> object created using the coordinates for Seattle, latitude: 47.606209 and longitude: -122.332071 (line 5).
+				</p>
+				<p>
+				Then define the options for the map including where to center it, what level to zoom to, and what type of map to use. For the center location used, the previously created LatLng object saved in the myLatlng variable (line 8). You should experiment with the level of zoom you prefer, options are typically from 0 to 18 for roadmaps while max zoom may vary for satellite images. For this demo the zoom level is set to 16 (line 9). Finally, the <a href="https://developers.google.com/maps/documentation/javascript/reference#MapTypeId">map type</a> is set to ROADMAP; other options include HYBRID, SATELLITE, and TERRAIN (line 10).
+				</p>
+				<p>
+				In the final step, the map object itself is created using input arguments for the division element created for the map and the map options specified (line 13). If you remember from the cleanup activities in the previous section, you created a division with an id of myMap for our map, so this is the first input argument for the map constructor. The second input argument are the mapOptions you just defined. Next, add a marker at the location, the position used to center the map. Create a new <a href="https://developers.google.com/maps/documentation/javascript/reference#Marker">Google Maps Marker</a> object and specify the position using the previously assigned myLatlng variable (line 16). Then specify the map to be the map object created in line 13 and assigned to the map variable (line 17). Once the map object is created and the marker is added, assign it to the map variable within the scope so it can be used in the view as well (line 20). 
+				</p>
+				<p>
+				<b>File: controllers.js (only MapCtrl shown)</b>
+				<script src="https://gist.github.com/abroederdorf/1863f53a7ba880cdee456954485d5469.js"></script>
+				</p>
+				<p>
+				Congratulations, you now have a working Google Map in your app! The following screenshot shows what the map view should be showing.
+				<center><a href="img/addMap_map.png"><img class="phoneScreenshot" src="img/addMap_map.png"></a></center>
+				</p>
+				
+				<nav aria-label="...">
+				  <ul class="pager">
+					<li class="previous"><a href="basicMap.html"><span aria-hidden="true">&larr;</span> Basic Map: Cleanup</a></li>
+					<li class="next"><a href="centerMap.html">Basic Map: Center Map <span aria-hidden="true">&rarr;</span></a></li>
+				  </ul>
+				</nav>
+				<div id="pageFooter"></div>
+				<script src='js/footer.js'></script>
+			</div>
+		</div>
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
