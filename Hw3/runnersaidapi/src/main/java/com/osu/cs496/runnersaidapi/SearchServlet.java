@@ -35,14 +35,19 @@ public class SearchServlet extends HttpServlet {
     final PrintWriter respMsg = resp.getWriter();
 	
 	//Get parameters
-	boolean booStatus = false, booType = false, booLocation = false;
+	boolean booStatus = false, booType = false, booLocation = false, booUser = false; 
 	String status = req.getParameter("status");
 	String type = req.getParameter("type");
 	String radStr = req.getParameter("radius");
 	String latStr = req.getParameter("latitude");
 	String longStr = req.getParameter("longitude");
 	
+	String userIdStr = req.getParameter("user"); 
+	long userId = -1;
+	if (userIdStr != "" && userIdStr != null)
+		userId = Long.parseLong(userIdStr);
 	
+	//Get list for parameter provided
 	List<Place> statusPl = new ArrayList<Place>();
 	if (status != null && status != ""){
 		booStatus = true;
@@ -53,22 +58,60 @@ public class SearchServlet extends HttpServlet {
 		booType = true;
 		typePl.addAll(ObjectifyService.ofy().load().type(Place.class).filter("type",type).list());
 	}	
+	List<Place> userPl = new ArrayList<Place>();
+	if (userId != -1){
+		booUser = true;
+		UserRA user = ObjectifyService.ofy().load().type(UserRA.class).id(userId).now();
+		List<Long> favs = user.getFavorite();
+		if (favs.indexOf(-100L) != -1 && favs.indexOf(-100L) < favs.size())
+			favs.remove(favs.indexOf(-100L));
+		if (user != null){
+			for (int i = 0; i < favs.size(); i++){
+				if (favs.get(i) != -100)
+					userPl.add(ObjectifyService.ofy().load().type(Place.class).id(favs.get(i)).now());
+			}
+		}	
+	}
 	if (radStr != null && radStr != "" &&
 		latStr != null && latStr != "" &&
 		longStr != null && longStr != "")
 			booLocation = true;
 
 	List<Place> filtPlace = new ArrayList<Place>();
-	//Get list of common elements between status and type
-	if (booType && !booStatus){
+	//Get list of common elements between parameters
+	if (booType && !booStatus && !booUser){
 		filtPlace.addAll(typePl);
 	}
-	else if (!booType && booStatus){
+	else if (!booType && booStatus && !booUser){
 		filtPlace.addAll(statusPl);
 	}
-	else if (booType && booStatus){
+	else if (!booType && !booStatus && booUser){
+		filtPlace.addAll(userPl);
+	}
+	else if (booType && booStatus && !booUser){
 		for (Place place : typePl){
 			if (statusPl.contains(place))
+				filtPlace.add(place);
+		}
+	}
+	else if (booType && !booStatus && booUser){
+		for (Place place : typePl){
+			System.out.println("Place: " );
+			System.out.println(place);
+			System.out.println(userPl);
+			if (userPl.contains(place))
+				filtPlace.add(place);
+		}
+	}
+	else if (!booType && booStatus && booUser){
+		for (Place place : userPl){
+			if (statusPl.contains(place))
+				filtPlace.add(place);
+		}
+	}
+	else if (booType && booStatus && booUser){
+		for (Place place : typePl){
+			if (statusPl.contains(place) && userPl.contains(place))
 				filtPlace.add(place);
 		}
 	}

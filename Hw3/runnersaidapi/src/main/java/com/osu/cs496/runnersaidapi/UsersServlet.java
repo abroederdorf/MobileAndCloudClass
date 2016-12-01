@@ -44,6 +44,8 @@ public class UsersServlet extends HttpServlet {
 	if (fieldStr != null && fieldStr != "")
 		fields = fieldStr.toLowerCase();
 	
+	String gidStr = req.getParameter("gid");
+	
 	//Get specified user by id but not favorites list
 	if (id != -1 && fields.equals("dne")){
 		//Get user
@@ -71,7 +73,8 @@ public class UsersServlet extends HttpServlet {
 		
 		if (thisUser != null){
 			List<Long> favs = thisUser.getFavorite();
-			favs.remove(-100L);
+			if (favs.indexOf(-100L) != -1 && favs.indexOf(-100L) < favs.size())
+				favs.remove(favs.indexOf(-100L));
 			
 			List<Place> favPlaces = new ArrayList<Place>();
 			for (long placeId : favs){
@@ -98,6 +101,27 @@ public class UsersServlet extends HttpServlet {
 		respMsg.println("Incorrect url, only valid field parameter is favorite");
 		respMsg.flush();
 		respMsg.close();
+	}
+	//Return user id from provided google id
+	else if (gidStr != "" && gidStr != null){
+		long gusers = -1;
+		List<UserRA> gUser = ObjectifyService.ofy().load().type(UserRA.class).filter("userId",gidStr).list();
+		gusers = gUser.get(0).id;
+		
+		if (gusers != -1){
+			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.setContentType("application/json");
+			String dataJSON = new Gson().toJson(gusers);
+			respMsg.println(dataJSON);
+			respMsg.flush();
+			respMsg.close();
+		}
+		else{
+			resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			respMsg.println("No users returned for that Google id");
+			respMsg.flush();
+			respMsg.close();
+		}
 	}
 	//No id provided, return entire list
 	else{
