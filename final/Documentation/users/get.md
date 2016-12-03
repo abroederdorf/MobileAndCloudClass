@@ -4,7 +4,7 @@
 
 Depending on parameters included in the query this endpoint may return a list of all users, the details for a specified user, the favorite list for a specified user, or the user id given the Google account user id.
 
-~~~
+---
 
 ## List:
 
@@ -54,7 +54,8 @@ The response will include a JSON object with an array of all user objects
   }
 ]
 ```
-~~~
+
+---
 
 ## One User:
 
@@ -96,7 +97,8 @@ The response will include a JSON object of the user specified
   }
 ]
 ```
-~~~
+
+---
 
 ## Favorite List: 
 
@@ -172,7 +174,8 @@ The response will include a JSON object with an array of place objects specified
   }
 ]
 ```
-~~~
+
+---
 
 ## User Id:
 

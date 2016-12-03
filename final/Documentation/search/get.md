@@ -4,7 +4,7 @@
 
 Search places using criteria of status, type, location, and/or user's favorites
 
-~~~
+---
 
 ## URL Query Example
 
@@ -19,7 +19,7 @@ http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radi
  - **longitude** *(required if radius is used)*: Longitude coordinate of position to extend the search radius from
 - **user** *(optional)*: User id to specify returning the favorite place list
  
-~~~
+---
 
 ## Response
 
