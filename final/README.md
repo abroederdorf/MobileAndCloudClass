@@ -5,34 +5,34 @@ This documentation describes the endpoints and provides examples of an expected 
 ## Places
 
 ### GET
-- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/places/getList.md): Returns list of details for all places
-- [/places?id=](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/places/getPlace.md): Returns details for specified place
+- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/places/getList.md): Returns list of details for all places
+- [/places?id=](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/places/getPlace.md): Returns details for specified place
 
 ### POST
-- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/places/post.md): Adds new place to database
+- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/places/post.md): Adds new place to database
 
 ### PUT
-- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/places/put.md): Modify details of place, including vote for status
+- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/places/put.md): Modify details of place, including vote for status
 
 ### DELETE
-- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/places/delete.md): Remove place from database.
+- [/places](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/places/delete.md): Remove place from database.
 
 ## Users
 
 ### GET
-- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/users/get.md): Returns list of details for all users, details for specified user, favorite list of place objects or place ids for specified user, or user id given a username and password.
+- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/users/get.md): Returns list of details for all users, details for specified user, favorite list of place objects or place ids for specified user, or user id given a username and password.
 
 ### POST
-- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/users/post.md): Adds new user to database
+- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/users/post.md): Adds new user to database
 
 ### PUT
-- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/users/putUser.md): Modify details of user
-- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/users/putFav.md): Modify user's favorite list by adding place
+- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/users/putUser.md): Modify details of user
+- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/users/putFav.md): Modify user's favorite list by adding place
 
 ### DELETE
-- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/users/deleteFav.md): Remove place from user's favorite list
+- [/users](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/users/deleteFav.md): Remove place from user's favorite list
 
 ## Search
 
 ### GET
-- [/search](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/runnersaidapi/documentation/search/get.md): Search places using criteria of status, type, location, and/or user id for favorite list
+- [/search](https://github.com/abroederdorf/MobileAndCloudClass/tree/master/final/documentation/search/get.md): Search places using criteria of status, type, location, and/or user id for favorite list
