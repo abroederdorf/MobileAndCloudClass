@@ -1,0 +1,42 @@
+<ion-view view-title="Edit Place" ng-init="init()">
+  <ion-content ng-app="starter" class="padding">
+	<div class="list">
+		<label class="item item-input">
+			<span class="input-label">Name</span>
+			<input ng-model="data.name" type="text" required id="editName">
+		</label>
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Type
+			</div>
+			<select ng-model="data.type" required id="editType">
+				<option value="">Please select...</option>
+				<option value="Water Fountain">Water Fountain</option>
+				<option value="Bathroom">Bathroom</option>
+			</select>
+		</label>
+        <!--https://forum.ionicframework.com/t/programmatic-updating-of-ion-toggle-not-working/36155/2-->
+        <ion-toggle class="meds-toggle"
+                    toggle-class="toggle-calm"
+                    ng-model="data.status"
+					ng-checked="data.status">
+          <div class="toggle-text">Status: {{data.status ? "Open" : "Closed"}}</div>
+        </ion-toggle>
+		<div>
+		<label class="item item-input">
+			<span class="input-label">Location </span>
+			<input ng-model="data.location" type="text" required id="editLoc">
+		</label>
+		</div>
+	</div>
+	<a class="button button-stable button-block" ng-click="getAddress()"><span class="ion-map"> Update to Address</span></a>
+	<a class="button button-stable button-block" ng-click="getCurrent()"><span class="ion-location"> Use Current Location</span></a>
+	<div id="mapEdit" class="smallMap" data-tap-disabled="false"></div>
+  </ion-content>
+  <ion-footer-bar class="bar-clear">
+		<div class="button-bar">
+		<a class="button button-balanced" ng-click="editPlace()"><span class="ion-checkmark-round"></span> Update Place</a>
+		<a class="button button-assertive" ng-click="go('app.single', data.id)"><span class="ion-close-round"></span> Cancel</a>
+		</div>
+	</ion-footer-bar>
+</ion-view>

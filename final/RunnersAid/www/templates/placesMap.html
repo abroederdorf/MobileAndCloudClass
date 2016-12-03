@@ -1,0 +1,14 @@
+<ion-view class="calm" view-title="View Places" ng-init="init()">
+<ion-footer-bar class="bar-stable">
+	<div class="button-bar">
+		<a class="button button-stable" ng-click="go('app.filter')"><span class="ion-funnel"> Filter</span></a>
+		<a class="button button-stable" ng-click="navPlaces()"><span class="ion-android-list"> List View</span></a>	
+	</div>
+  </ion-footer-bar>
+  <ion-content>
+    <div id="mapView" data-tap-disabled="true"></div>
+  </ion-content>
+  
+</ion-view>
+
+

@@ -1,0 +1,22 @@
+<ion-view view-title="Create Account">
+  <ion-content ng-app="starter" class="padding">
+	<div class="list">
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">Username (Email)</span>
+			<input ng-model="data.uname" type="email" required>
+		</label>
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">Password</span>
+			<input ng-model="data.pword" type="password" required>
+		</label>
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">Confirm Password</span>
+			<input ng-model="data.pword2" type="password" required>
+		</label>
+	</div>
+	<div class="button-bar">
+		<a class="button button-balanced" ng-click="addUser()"><span class="ion-plus-round"></span> Create Account</a>
+	</div>
+  </ion-content>
+  
+</ion-view>

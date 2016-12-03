@@ -1,0 +1,35 @@
+<ion-view view-title="Place">
+  <ion-content class="padding" ng-controller="PlaceCtrl">
+	<div class="row row-middle">
+		<div class="col col-80 col-center">
+			<h3 class="item-text-wrap">{{place.name}}</h3>
+		</div>
+		<div class="col col-center">
+			<!--Source for ng-if directive: http://stackoverflow.com/questions/15810278/if-else-statement-in-angularjs-templates-->
+			<button class="button button-light" ng-click="favorite(place.id, place.fav)"><span ng-if="place.fav == true"><span class='ion-android-star bigger-icon'></span></span><span ng-if="place.fav != true"><span class='ion-android-star-outline bigger-icon'></span></span></button>
+		</div>
+	</div>
+	<ion-list>
+		<div class="row">
+			<div class="col col-30">
+				Type: {{place.type}}<br>
+				Status: {{place.status}}<br>
+				Votes: {{place.vote}}<br>
+				 
+			</div>
+			<div class="col">
+				<a class="button button-balanced button-small" ng-click="voteUp(place.id)"><span class="ion-thumbsup"> Up Vote</span></a>
+				<a class="button button-assertive button-small" ng-click="voteDown(place.id)"><span class="ion-thumbsdown"> Down Vote</span></a>
+			</div>
+		</div>
+		Location: {{place.latitude}}, {{place.longitude}}
+	</ion-list>
+	<div id="map" data-tap-disabled="true"></div>
+	<br>
+	<p>Status for {{place.name}} last updated {{place.statusDate}}</p>
+  </ion-content>
+  <ion-footer-bar class="bar-stable">
+	<a class="button button-stable centerBtn" ng-click="go('app.edit', place.id)"><span class="ion-edit"></span> Edit Place</a>
+  </ion-footer-bar>
+</ion-view>
+

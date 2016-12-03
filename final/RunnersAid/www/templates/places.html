@@ -1,0 +1,27 @@
+<ion-view class="calm" view-title="View Places">
+<ion-footer-bar class="bar-stable">
+	<div class="button-bar">
+		<a class="button button-stable" ng-click="go('app.filter')"><span class="ion-funnel"> Filter</span></a>
+		<a class="button button-stable" ng-click="navMap()"><span class="ion-map"> Map View</span></a>	
+	</div>
+  </ion-footer-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="place in places" href="#/app/places/{{place.id}}">
+		<div class="row row-top">
+			<div class="col col-80" href="#/app/places/{{place.id}}">
+				<span class="item-text-wrap"><b>{{place.name}}</b></span><br>
+				{{place.type}} | {{place.status}} <br> Votes: {{place.vote}}
+			</div>
+			<div class="col" id="thisCol">
+				<!--Source for ng-if directive: http://stackoverflow.com/questions/15810278/if-else-statement-in-angularjs-templates-->
+				<button class="button button-light" ng-click="favorite(place.id, place.fav, $event)"><span ng-if="place.fav == true"><span class='ion-android-star bigger-icon'></span></span><span ng-if="place.fav != true"><span class='ion-android-star-outline bigger-icon'></span></span></button>
+			</div>
+		</div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+</ion-view>
+
+
