@@ -2,7 +2,7 @@
 
 ## /users
 
-Depending on parameters included in the query this endpoint may return a list of all users, the details for a specified user, the favorite list for a specified user, or the user id given the Google account user id.
+Depending on parameters included in the query this endpoint may return a list of details for all users, details for a specified user, a favorite list of place objects or place ids for a specified user, or a user id given a username and password.
 
 ---
 
@@ -105,14 +105,17 @@ The response will include a JSON object of the user specified
 ### URL Query Examples
 ```
 http://runnersaidapp2.appspot.com/api/v1/users?id=123456789&fields=favorite
+
+http://runnersaidapp2.appspot.com/api/v1/users?id=123456789&fields=favorite&favType=ids
 ```
 
 - **id** *(required)*: Database id of user
 - **fields** *(required)*: "favorite", this indicates to return the favorite list for the specified user
+- **favType** *(optional)*: Include to return a list of place ids rather than a list of place objects
 
 ### Response
 
-The response will include a JSON object with an array of place objects specified as favorites of the specified user
+For no favType paramenter, the response will include a JSON object with an array of place objects specified as favorites of the specified user
 
 - Place Object:
  - **id**: Id of place generated from database
@@ -125,6 +128,8 @@ The response will include a JSON object with an array of place objects specified
  - **status**: Status of location, open or closed
  - **statusDate**: Date for the most recent update of the status
  - **vote**: Integer representing the confidence vote of the status. This may be any interger - positive, negative, or zero
+ 
+For a favType paramenter of ids, the response will include a JSON object with an array of place ids specified as favorites of the specified user
 
 ### Status
 - 200: Ok
@@ -173,6 +178,10 @@ The response will include a JSON object with an array of place objects specified
     "vote": 1
   }
 ]
+```
+
+```
+[5639445604728832,5659313586569216]
 ```
 
 ---

@@ -9,7 +9,8 @@ Search places using criteria of status, type, location, and/or user's favorites
 ## URL Query Example
 
 ```
-http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radius=6&latitude=47.65&longitude=-122.3&user=5654313976201216
+http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom
+&radius=6&latitude=47.65&longitude=-122.3&user=5654313976201216
 ```
 
 - **type** *(optional)*: Type of place, i.e. water fountain or bathroom
