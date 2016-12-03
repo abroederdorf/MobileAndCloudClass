@@ -2,14 +2,15 @@
 
 ## /search
 
-Search places using criteria of status, type, location, and/or user's favorites
+Search places using criteria of status, type, and/or location
 
-~~~
+---
 
 ## URL Query Example
 
 ```
-http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radius=6&latitude=47.65&longitude=-122.3&user=5654313976201216
+http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radius=6&latitude=47.65&
+longitude=-122.3
 ```
 
 - **type** *(optional)*: Type of place, i.e. water fountain or bathroom
@@ -17,9 +18,8 @@ http://runnersaidapp2.appspot.com/api/v1/search?status=Closed&type=Bathroom&radi
 - **radius** *(optional)*: Radius for search, in miles
  - **latitude** *(required if radius is used)*: Latitude coordinate of position to extend the search radius from
  - **longitude** *(required if radius is used)*: Longitude coordinate of position to extend the search radius from
-- **user** *(optional)*: User id to specify returning the favorite place list
- 
-~~~
+
+---
 
 ## Response
 
@@ -33,7 +33,7 @@ The response will include a JSON object with an array of all place objects that 
  - **createdUserId**: Database id of user who created place
  - **latitude**: Latitude coordinate for location of place
  - **longitude**: Longitude coordinate for location of place
- - **status**: Status of location, open or closed
+ - **status**: Status of place, open or closed
  - **statusDate**: Date for the most recent update of the status
  - **vote**: Integer representing the confidence vote of the status. This may be any interger - positive, negative, or zero
 

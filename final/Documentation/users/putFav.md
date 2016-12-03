@@ -4,7 +4,7 @@
 
 Modify user's favorite list by adding place
 
-~~~
+---
 
 ## URL Query Example
 
@@ -22,10 +22,11 @@ http://runnersaidapp2.appspot.com/api/v1/users
 Add place to user's favorite list:
 
 ```
-curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 'id=5664248772427776&favorite=5692462144159744' "http://runnersaidapp2.appspot.com/api/v1/users"
+curl -X PUT -H "Content-Type: application/x-www-form-urlencoded" -d 
+'id=5664248772427776&favorite=5692462144159744' "http://runnersaidapp2.appspot.com/api/v1/users"
 ```
 
-~~~
+---
 
 ## Response
 
