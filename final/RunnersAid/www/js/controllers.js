@@ -1,4 +1,4 @@
-var currentUserId = 5672749318012928;
+var currentUserId = -1;
 
 class myPlace{
 	constructor(placeObj, fav){ 
