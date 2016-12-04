@@ -206,8 +206,9 @@ The response will include the database user id as a long number
 
 #### Status
 - 200: Ok
-- 400: Bad Request
- - No users returned for that Google id
+- 401: Unauthorized
+ - Password incorrect
+ - Username incorrect
 
 #### JSON Object
 
