@@ -140,6 +140,7 @@ For a favType paramenter of ids, the response will include a JSON object with an
 #### JSON Object
 
 ```
+No favType parameter:
 [
   {
     "id": 5692462144159744,
@@ -180,6 +181,7 @@ For a favType paramenter of ids, the response will include a JSON object with an
 ]
 ```
 
+favType parameter: ids
 ```
 [5639445604728832,5659313586569216]
 ```
