@@ -410,7 +410,7 @@ angular.module('starter.controllers', [])
 				})
 		}
 		else{
-			$scope.place = new myPlace(elm, false);
+			$scope.place = new myPlace(data, false);
 			initMap();
 			console.log($scope.place);
 		}
@@ -573,7 +573,6 @@ angular.module('starter.controllers', [])
 		navigator.geolocation.getCurrentPosition(function(pos) {
 			var posLat = pos.coords.latitude;
 			var posLong = pos.coords.longitude;
-			
 			updateMap(posLat, posLong, false);
 		});
 		$scope.data = {};
