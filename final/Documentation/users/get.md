@@ -192,10 +192,11 @@ favType parameter: ids
 
 ### URL Query Examples
 ```
-http://runnersaidapp2.appspot.com/api/v1/users?gid=67890
+http://runnersaidapp2.appspot.com/api/v1/users?username=jonest@oregonstate.edu&password=Password1
 ```
 
-- **gid** *(required)*: Google account user id
+- **username** *(required)*: Username of user
+- **password** *(required)*: Password of user
 
 ### Response
 
