@@ -139,8 +139,8 @@ For a favType paramenter of ids, the response will include a JSON object with an
 
 #### JSON Object
 
+favType parameter: none
 ```
-No favType parameter:
 [
   {
     "id": 5692462144159744,

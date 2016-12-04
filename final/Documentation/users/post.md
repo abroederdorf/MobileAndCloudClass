@@ -14,13 +14,13 @@ http://runnersaidapp2.appspot.com/api/v1/users
 
 ## Request Body
 
-- **userId** *(required)*: String id of user associated with login information
-- **email** *(required)*: String of user email associated with login information 
+- **username** *(required)*: String for user's username
+- **password** *(required)*: String for user's password 
 
 ### Example
 
 ```
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'userId=345987&email=jonest@oregonstate.edu' 
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'username=jonest@oregonstate.edu&password=Password1' 
 "http://runnersaidapp2.appspot.com/api/v1/users"
 ```
 
@@ -32,8 +32,8 @@ The response will include a JSON object of the newly created user
 
 - User Object:
  - **id**: Id of user generated from database
- - **userId**: User id associated with Google login information
- - **email**: Email of user
+ - **username**: Username of user
+ - **password**: Password of user
  - **favorite**: List of place ids to signify favorite list of user. Note all user's contain invalid -100 place id.
 
 ### Status
@@ -50,8 +50,8 @@ The response will include a JSON object of the newly created user
 ```
 {
   "id": 5664248772427776,
-  "userId": "345987",
-  "email": "jonest@oregonstate.edu",
+  "username": "jonest@oregonstate.edu",
+  "password": "Password1",
   "favorite": [
     -100
   ]
