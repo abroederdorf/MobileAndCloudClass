@@ -18,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
@@ -36,11 +38,14 @@ public class BusStopServlet extends HttpServlet{
 		formatterA.setTimeZone(TimeZone.getTimeZone("PST"));
 		SimpleDateFormat formatterW = new SimpleDateFormat("mm:ss");
 		int numberEvents;
-		String route, arrival, wait;
+		String route, arrival, wait, stopDirection;
 		
 		ArrayList<BusInfo> buses = new ArrayList<BusInfo>();
 		ArrayList<BusStop> stops = new ArrayList<BusStop>();
-		String[] busStops = {"1_7380", "1_6030", "1_6050"};
+		String[] busStops = {"1_7380", "1_6030", "1_6050", "1_2247", "1_2285", "1_6235", "1_6240", "1_590"}; //bus stop of interest
+		//http://stackoverflow.com/questions/1005073/initialization-of-an-arraylist-in-one-line
+		List<String> busRoutes = Arrays.asList("26", "62", "5", "28", "26E", "28E", "8"); //routes of interest
+		
 		
 		for (int j = 0; j < busStops.length; j++){
 			//Initialize variables
@@ -48,6 +53,7 @@ public class BusStopServlet extends HttpServlet{
 			futureMillis = currentMillis;
 			
 			//Fetch url and read response
+			//API documentation: http://developer.onebusaway.org/modules/onebusaway-application-modules/current/api/where/index.html
 			URL url = new URL("http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/" + busStops[j] + ".json?key=d20c6ed5-505d-480f-842d-1c2b26e2b976");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 			StringBuffer json = new StringBuffer();
@@ -67,37 +73,41 @@ public class BusStopServlet extends HttpServlet{
 				route = "";
 				route = jo.getJSONObject("data").getJSONObject("entry").getJSONArray("arrivalsAndDepartures").getJSONObject(i).getString("routeShortName");
 				
-				//Get arrival time
-				arrival = "Not available";
-				if (jo.getJSONObject("data").getJSONObject("entry").getJSONArray("arrivalsAndDepartures").getJSONObject(i).getLong("predictedArrivalTime") != 0)
-				{
-					futureMillis = jo.getJSONObject("data").getJSONObject("entry").getJSONArray("arrivalsAndDepartures").getJSONObject(i).getLong("predictedArrivalTime");
-					Date dateA = new Date(futureMillis);
-					arrival = formatterA.format(dateA);
+				//Only add routes of interest
+				if (busRoutes.contains(route)){
+					//Get arrival time
+					arrival = "Not available";
+					if (jo.getJSONObject("data").getJSONObject("entry").getJSONArray("arrivalsAndDepartures").getJSONObject(i).getLong("predictedArrivalTime") != 0)
+					{
+						futureMillis = jo.getJSONObject("data").getJSONObject("entry").getJSONArray("arrivalsAndDepartures").getJSONObject(i).getLong("predictedArrivalTime");
+						Date dateA = new Date(futureMillis);
+						arrival = formatterA.format(dateA);
+					}
+					
+					//Get wait time
+					wait = "";
+					timeDiff = futureMillis - currentMillis > 0 ? futureMillis - currentMillis : 0;
+					Date dateW = new Date(timeDiff);
+					wait = formatterW.format(dateW);
+					
+					//Create and add object
+					buses.add(new BusInfo(route, arrival, wait));
 				}
-				
-				//Get wait time
-				wait = "";
-				timeDiff = futureMillis - currentMillis > 0 ? futureMillis - currentMillis : 0;
-				Date dateW = new Date(timeDiff);
-				wait = formatterW.format(dateW);
-				
-				//Create and add object
-				buses.add(new BusInfo(route, arrival, wait));
-
 			}
 			
 			//Get stop name 
 			stopName = "";
+			stopDirection = "";
 			int numStops = jo.getJSONObject("data").getJSONObject("references").getJSONArray("stops").length();
 			for (int k = 0; k < numStops; k++){
-				if(busStops[j].equals(jo.getJSONObject("data").getJSONObject("references").getJSONArray("stops").getJSONObject(k).getString("id")));
+				if(busStops[j].equals(jo.getJSONObject("data").getJSONObject("references").getJSONArray("stops").getJSONObject(k).getString("id"))){
 					stopName = jo.getJSONObject("data").getJSONObject("references").getJSONArray("stops").getJSONObject(k).getString("name");
+					stopDirection = jo.getJSONObject("data").getJSONObject("references").getJSONArray("stops").getJSONObject(k).getString("direction");
+				}
 			}
 			
 			//Create bus stop object and add to list
-			stops.add(new BusStop(buses, stopName));
-	
+			stops.add(new BusStop(buses, stopName, busStops[j], stopDirection));
 		}
 	
 		//Return response

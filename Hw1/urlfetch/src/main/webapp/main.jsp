@@ -9,6 +9,7 @@
 
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.String" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
@@ -43,8 +44,11 @@
 			for(BusStop thisStop : allStops){
 				if (thisStop != null){
 					pageContext.setAttribute("stopName", thisStop.name);
+					pageContext.setAttribute("stopDirection", thisStop.direction);
+					String divId = thisStop.id + "_div";
+					pageContext.setAttribute("stopId", divId);
 	%>
-		<h4>${fn:escapeXml(stopName)}</h4>	
+		<h4><button type="button" class="btn btn-default" data-toggle="collapse" data-target="#${fn:escapeXml(stopId)}"> + </button>${fn:escapeXml(stopName)}, ${fn:escapeXml(stopDirection)}</h4>	
 	<%
 					if (thisStop.buses.isEmpty()){		
 	%>	
@@ -52,7 +56,7 @@
 	<%
 					}else{
 	%>
-		<div class="row">
+		<div class="row collapse" id="${fn:escapeXml(stopId)}">
 			<div class="col-sm-off-3 col-sm-6 col-xs-12">
 			<table class="table table-hover table-bordered">
 				<thead>
