@@ -33,12 +33,12 @@ public class BusStopServlet extends HttpServlet{
 
 		//Initialize variables
 		long currentMillis = System.currentTimeMillis();
-		long futureMillis, timeDiff;
+		long futureMillis, timeDiff, schedMillis; //~~~~~~~new
 		SimpleDateFormat formatterA = new SimpleDateFormat("hh:mm:ss a");
 		formatterA.setTimeZone(TimeZone.getTimeZone("PST"));
 		SimpleDateFormat formatterW = new SimpleDateFormat("mm:ss");
 		int numberEvents;
-		String route, arrival, wait, stopDirection;
+		String route, arrival, wait, scheduled, stopDirection; //~~~~~~~new
 		
 		ArrayList<BusInfo> buses = new ArrayList<BusInfo>();
 		ArrayList<BusStop> stops = new ArrayList<BusStop>();
@@ -83,6 +83,8 @@ public class BusStopServlet extends HttpServlet{
 						Date dateA = new Date(futureMillis);
 						arrival = formatterA.format(dateA);
 					}
+					else
+						futureMillis = currentMillis;  //~~~~~~~new
 					
 					//Get wait time
 					wait = "";
@@ -90,8 +92,17 @@ public class BusStopServlet extends HttpServlet{
 					Date dateW = new Date(timeDiff);
 					wait = formatterW.format(dateW);
 					
+					//Get scheduled time //~~~~~~~new
+					scheduled = "Not Available";
+					if (jo.getJSONObject("data").getJSONObject("entry").getJSONArray("arrivalsAndDepartures").getJSONObject(i).getLong("scheduledArrivalTime") != 0)
+					{
+						schedMillis = jo.getJSONObject("data").getJSONObject("entry").getJSONArray("arrivalsAndDepartures").getJSONObject(i).getLong("scheduledArrivalTime");
+						Date dateS = new Date(schedMillis);
+						scheduled = formatterA.format(dateS);
+					}
+					
 					//Create and add object
-					buses.add(new BusInfo(route, arrival, wait));
+					buses.add(new BusInfo(route, arrival, wait, scheduled)); //~~~~~~~new
 				}
 			}
 			
